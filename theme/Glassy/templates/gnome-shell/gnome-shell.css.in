@@ -189,8 +189,11 @@ StEntry:focus {
   border-radius: 32px;
 }
 
+/* Un toggle semplice è una pillola. Uno con sottomenu (Wi-Fi, Bluetooth, tastiera…) è fatto di tre pezzi:
+   il toggle, un filetto e la freccia. La pillola di vetro la disegna l'involucro (.quick-toggle-has-menu),
+   e i pezzi dentro restano senza sfondo né bordo: così la freccia non diventa una seconda bolla attaccata. */
 .quick-toggle,
-.quick-toggle-has-menu .quick-toggle-menu-button {
+.quick-toggle-has-menu {
   color: #ffffff;
   background-gradient-direction: vertical;
   background-gradient-start: rgba(255, 255, 255, 0.16);
@@ -200,15 +203,13 @@ StEntry:focus {
 }
 
 .quick-toggle:hover,
-.quick-toggle:focus,
-.quick-toggle-has-menu .quick-toggle-menu-button:hover,
-.quick-toggle-has-menu .quick-toggle-menu-button:focus {
+.quick-toggle:focus {
   background-gradient-start: rgba(255, 255, 255, 0.24);
   background-gradient-end: rgba(255, 255, 255, 0.13);
 }
 
 .quick-toggle:checked,
-.quick-toggle-has-menu:checked .quick-toggle-menu-button {
+.quick-toggle-has-menu:checked {
   color: -st-accent-fg-color;
   background-gradient-start: st-lighten(-st-accent-color, 12%);
   background-gradient-end: -st-accent-color;
@@ -220,6 +221,68 @@ StEntry:focus {
 .quick-toggle:checked:focus {
   background-gradient-start: st-lighten(-st-accent-color, 20%);
   background-gradient-end: st-lighten(-st-accent-color, 5%);
+}
+
+/* i pezzi dentro l'involucro: trasparenti, con solo un velo in hover */
+.quick-toggle-has-menu .quick-toggle,
+.quick-toggle-has-menu .quick-toggle:checked,
+.quick-toggle-has-menu .quick-toggle-menu-button,
+.quick-toggle-has-menu .quick-toggle-menu-button:checked {
+  background-color: transparent;
+  background-gradient-direction: none;
+  border: none;
+  box-shadow: none;
+}
+
+.quick-toggle-has-menu .quick-toggle:hover,
+.quick-toggle-has-menu .quick-toggle:focus,
+.quick-toggle-has-menu .quick-toggle:checked:hover,
+.quick-toggle-has-menu .quick-toggle:checked:focus,
+.quick-toggle-has-menu .quick-toggle-menu-button:hover,
+.quick-toggle-has-menu .quick-toggle-menu-button:focus,
+.quick-toggle-has-menu .quick-toggle-menu-button:checked:hover,
+.quick-toggle-has-menu .quick-toggle-menu-button:checked:focus {
+  background-color: rgba(255, 255, 255, 0.14);
+  background-gradient-direction: none;
+  border: none;
+  box-shadow: none;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button,
+.quick-toggle-has-menu .quick-toggle-menu-button:checked {
+  color: inherit;
+  padding: 0.409em 0.9em;
+}
+
+.quick-toggle-has-menu .quick-toggle-menu-button StIcon {
+  icon-size: 1em;
+}
+
+/* il velo in hover segue la forma della metà di pillola: tonda fuori, dritta verso il filetto */
+.quick-toggle-has-menu .quick-toggle:ltr,
+.quick-toggle-has-menu .quick-toggle:ltr:hover,
+.quick-toggle-has-menu .quick-toggle:ltr:focus,
+.quick-toggle-has-menu .quick-toggle:ltr:checked,
+.quick-toggle-has-menu .quick-toggle:ltr:checked:hover,
+.quick-toggle-has-menu .quick-toggle:ltr:checked:focus {
+  border-radius: 999px 0 0 999px;
+}
+
+.quick-toggle-has-menu .quick-toggle:rtl,
+.quick-toggle-has-menu .quick-toggle:rtl:hover,
+.quick-toggle-has-menu .quick-toggle:rtl:focus,
+.quick-toggle-has-menu .quick-toggle:rtl:checked,
+.quick-toggle-has-menu .quick-toggle:rtl:checked:hover,
+.quick-toggle-has-menu .quick-toggle:rtl:checked:focus {
+  border-radius: 0 999px 999px 0;
+}
+
+/* il filetto tra toggle e freccia: sottile e non più alto della pillola */
+.quick-toggle-has-menu .quick-toggle-separator,
+.quick-toggle-has-menu:checked .quick-toggle-separator {
+  width: 1px;
+  margin: 12px 0;
+  background-color: rgba(255, 255, 255, 0.28);
 }
 
 .quick-toggle-menu {

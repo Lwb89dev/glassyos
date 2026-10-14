@@ -77,16 +77,18 @@
   padding-right: 6px;
 }
 
+/* Nessun riquadro in hover/focus: come in macOS, l'app si ingrandisce e basta. */
 .glassy-launchpad-item {
-  border-radius: 22px;
   padding: 10px 4px 4px 4px;
-  background-color: transparent;
-  transition-duration: 160ms;
+  border: none;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
 }
 
-.glassy-launchpad-item:hover,
-.glassy-launchpad-item:focus {
-  background-color: rgba(255, 255, 255, 0.13);
+.glassy-launchpad-item:hover .glassy-launchpad-label,
+.glassy-launchpad-item:focus .glassy-launchpad-label {
+  text-shadow: 0 1px 6px rgba(0, 0, 10, 0.9);
 }
 
 .glassy-launchpad-label {

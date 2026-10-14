@@ -891,14 +891,18 @@ export class Dock {
             return;
         }
         if (e.kind === 'trash') {
-            if (mouseButton === Clutter.BUTTON_SECONDARY)
+            if (mouseButton === Clutter.BUTTON_SECONDARY) {
                 this._showTrashMenu(e);
-            else
+            } else {
+                this._launchpad.hide();
                 Gio.AppInfo.launch_default_for_uri_async('trash:///', null, null, null);
+            }
             return;
         }
 
         const app = e.app;
+        if (mouseButton !== Clutter.BUTTON_SECONDARY)
+            this._launchpad.hide();       // il launcher aperto si chiude quando si avvia/attiva un'app dal dock
         if (mouseButton === Clutter.BUTTON_SECONDARY) {
             this._showAppMenu(e);
         } else if (mouseButton === Clutter.BUTTON_MIDDLE) {

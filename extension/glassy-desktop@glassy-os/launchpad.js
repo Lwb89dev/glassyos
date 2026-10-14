@@ -76,8 +76,15 @@ export class Launchpad {
 
         this._rebuildGrid();    // le misure si calcolano solo con gli attori già sullo stage
 
-        this._grab = Main.pushModal(this._actor, {actionMode: Shell.ActionMode.OVERVIEW});
+        // Il grab è sullo stage intero, come fa l'Overview di GNOME: con un grab sul solo launcher
+        // dock e barra superiore, che sono fuori dal suo albero, smetterebbero di ricevere il mouse.
+        this._grab = Main.pushModal(global.stage, {actionMode: Shell.ActionMode.OVERVIEW});
         global.stage.set_key_focus(this._entry);
+        // Su un secondo schermo o con un gesto un'altra finestra può prendere il fuoco: il launcher si chiude.
+        global.display.connectObject('notify::focus-window', () => {
+            if (global.display.focus_window)
+                this.hide();
+        }, this);
 
         this._actor.opacity = 0;
         this._content.set({scale_x: 1.08, scale_y: 1.08, opacity: 0});
@@ -95,6 +102,7 @@ export class Launchpad {
             return;
         this._closing = true;
 
+        global.display.disconnectObject(this);
         if (this._grab) {
             Main.popModal(this._grab);
             this._grab = null;
@@ -110,6 +118,7 @@ export class Launchpad {
     }
 
     _teardown() {
+        global.display.disconnectObject(this);
         if (this._wheelTimer) {
             GLib.source_remove(this._wheelTimer);
             this._wheelTimer = 0;
@@ -214,12 +223,15 @@ export class Launchpad {
             child: box,
             pivot_point: new Graphene.Point({x: 0.5, y: 0.5}),
         });
+        const syncScale = () => {
+            const s = button.hover || button.has_key_focus() ? 1.08 : 1;
+            button.ease({scale_x: s, scale_y: s, duration: 140, mode: Clutter.AnimationMode.EASE_OUT_QUAD});
+        };
         button.connectObject(
             'clicked', () => this._launch(app),
-            'notify::hover', () => button.ease({
-                scale_x: button.hover ? 1.07 : 1, scale_y: button.hover ? 1.07 : 1,
-                duration: 140, mode: Clutter.AnimationMode.EASE_OUT_QUAD,
-            }),
+            'notify::hover', syncScale,
+            'key-focus-in', syncScale,
+            'key-focus-out', syncScale,
             this);
         this._track.add_child(button);
         return {app, button, score: 0, name: app.get_name().toLocaleLowerCase(), keywords: this._keywords(app)};
@@ -445,9 +457,10 @@ export class Launchpad {
     }
 
     _onBackgroundPress(event) {
-        // I pulsanti consumano i loro clic: qui arrivano solo quelli nel vuoto.
-        const src = event.get_source();
-        if (src === this._actor || src === this._content || src === this._track) {
+        // I pulsanti consumano i loro clic: qui arrivano solo quelli nel vuoto. (event.get_source() in
+        // GNOME 50 non restituisce l'attore colpito: si chiede allo stage cosa c'è sotto il puntatore.)
+        const [x, y] = event.get_coords();
+        if (global.stage.get_actor_at_pos(Clutter.PickMode.REACTIVE, x, y) === this._actor) {
             this.hide();
             return Clutter.EVENT_STOP;
         }

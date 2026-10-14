@@ -1,7 +1,5 @@
 # Glassy
 
-🇬🇧 English · 🇮🇹 [Italiano](README.it.md)
-
 A frosted-glass **GNOME 50** desktop inspired by macOS: translucent windows with real blur, lit edges,
 colored traffic-light buttons on the left, a **dock with magnification**, a **full-screen app launcher**
 that replaces Activities, and smooth transitions. It follows light/dark mode and the accent color chosen in
@@ -17,7 +15,7 @@ that replaces Activities, and smooth transitions. It follows light/dark mode and
 > display, hence without the GNOME portal: some apps show the light theme for that reason).
 
 > **Language:** the installer messages, the settings panel and the Launchpad strings are currently in Italian
-> only (the documentation is available in both languages).
+> only (the documentation is in English).
 
 ## Installation
 

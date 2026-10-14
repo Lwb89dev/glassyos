@@ -203,3 +203,4 @@ Il codice, i CSS, gli script, gli sfondi e le immagini di questo repository sono
 
 Le icone Tela sono GPL-3.0 e non sono compatibili con una ridistribuzione sotto MIT: per questo il repository
 non le contiene (`Tela-ubuntu/` è in `.gitignore`) e vengono scaricate sul tuo computer al momento dell'installazione.
+# glassyos

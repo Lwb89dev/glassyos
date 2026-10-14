@@ -1,0 +1,8 @@
+{
+  "uuid": "glassy-desktop@glassy-os",
+  "name": "Glassy Desktop",
+  "description": "Dock in stile macOS con ingrandimento, launcher a schermo intero e niente Activities/Overview.",
+  "shell-version": ["50"],
+  "settings-schema": "org.gnome.shell.extensions.glassy-desktop",
+  "version": 1
+}

@@ -1,0 +1,16 @@
+# Icone Tela (GPL-3.0): non si ridistribuiscono in questo repository MIT.
+# L'installer le scarica da upstream (vedi THIRD-PARTY.md).
+/Tela-ubuntu/
+/Tela*/
+
+# CSS generati dai modelli in theme/Glassy/templates/ (li produce l'installer)
+/theme/Glassy/gtk-3.0/glassy-*.css
+/theme/Glassy/gtk-4.0/glassy.css
+/theme/Glassy/gnome-shell/gnome-shell.css
+
+# Schemi compilati e file locali
+*.compiled
+*.log
+*~
+.vscode/
+.claude/

@@ -1,0 +1,369 @@
+/*
+ * Glassy — GTK 3, overlay comune a chiaro e scuro.
+ * Si appoggia sui colori nominati definiti in glassy-light.css / glassy-dark.css.
+ * GTK3 non ha variabili CSS, color-mix né transform: qui si usano @colori, alpha() e mix().
+ */
+
+/* ── Finestre ─────────────────────────────────────────────────────────── */
+
+decoration {
+  border-radius: {{radius}}px {{radius}}px 0 0;
+  margin: 24px;
+  box-shadow:
+    0 0 0 1px @g_line,
+    0 16px 48px 4px @g_drop,
+    0 4px 14px rgba(0, 0, 10, {{shadow:0.16}});
+}
+
+decoration:backdrop {
+  box-shadow:
+    0 0 0 1px @g_line,
+    0 10px 30px 2px rgba(0, 0, 10, {{shadow:0.12}}),
+    0 2px 8px rgba(0, 0, 10, {{shadow:0.10}});
+  transition: {{ms:260}} cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.maximized decoration,
+.fullscreen decoration,
+.tiled decoration,
+.tiled-top decoration,
+.tiled-right decoration,
+.tiled-bottom decoration,
+.tiled-left decoration {
+  margin: 0;
+}
+
+/* ── Barra del titolo ─────────────────────────────────────────────────── */
+
+headerbar,
+.titlebar:not(headerbar) {
+  background-image: linear-gradient(to bottom, @g_sheen_a, @g_sheen_b 85%);
+  box-shadow: inset 0 1px @g_hi;
+}
+
+headerbar:backdrop,
+.titlebar:backdrop:not(headerbar) {
+  background-image: none;
+  box-shadow: none;
+}
+
+headerbar .title {
+  font-weight: bold;
+}
+
+/*{{#traffic}}*/
+/* Semafori stile Mac. Si presume button-layout "close,minimize,maximize:". */
+headerbar button.titlebutton:not(.appmenu),
+.titlebar button.titlebutton:not(.appmenu) {
+  min-width: 14px;
+  min-height: 14px;
+  margin: 0 4px;
+  padding: 0;
+  border: none;
+  border-radius: 9999px;
+  background-image: none;
+  transition: {{ms:160}} cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+headerbar button.titlebutton:not(.appmenu) image,
+.titlebar button.titlebutton:not(.appmenu) image {
+  margin: -1px;
+  opacity: 0;
+  transition: opacity {{ms:120}} linear;
+}
+
+headerbar button.titlebutton:not(.appmenu):hover image,
+.titlebar button.titlebutton:not(.appmenu):hover image {
+  opacity: 0.65;
+}
+
+headerbar button.titlebutton.close:not(.appmenu),
+.titlebar button.titlebutton.close:not(.appmenu) {
+  background-color: #ff5f57;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.45), 0 0 8px rgba(255, 95, 87, {{glowa:0.45}});
+}
+
+headerbar button.titlebutton.minimize:not(.appmenu),
+.titlebar button.titlebutton.minimize:not(.appmenu) {
+  background-color: #febc2e;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.50), 0 0 8px rgba(254, 188, 46, {{glowa:0.45}});
+}
+
+headerbar button.titlebutton.maximize:not(.appmenu),
+.titlebar button.titlebutton.maximize:not(.appmenu) {
+  background-color: #28c840;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.45), 0 0 8px rgba(40, 200, 64, {{glowa:0.45}});
+}
+
+headerbar button.titlebutton:not(.appmenu):backdrop,
+.titlebar button.titlebutton:not(.appmenu):backdrop {
+  background-color: alpha(currentColor, 0.22);
+  box-shadow: none;
+}
+
+/* Le barre del titolo "di default" e quelle lato server sono dipinte su un fondo opaco:
+   un vetro traslucido lì verrebbe chiaro. Si usa un colore pieno, uguale al vetro come resa. */
+headerbar.default-decoration,
+.default-decoration.titlebar:not(headerbar),
+.ssd .titlebar,
+.ssd headerbar {
+  background-color: @g_titlebar_solid;
+  background-image: linear-gradient(to bottom, @g_sheen_a, @g_sheen_b 85%);
+}
+
+/* Stessi semafori anche per le barre del titolo "di default" (finestre senza headerbar,
+   decorazioni lato server): adw-gtk3 le tratta con selettori più specifici, quindi si ripetono. */
+headerbar.default-decoration button.titlebutton:not(.appmenu),
+.default-decoration.titlebar:not(headerbar) button.titlebutton:not(.appmenu),
+.ssd .titlebar.default-decoration button.titlebutton:not(.appmenu) {
+  min-width: 14px;
+  min-height: 14px;
+  margin: 0 4px;
+  padding: 0;
+  border: none;
+  border-radius: 9999px;
+  background-image: none;
+}
+
+headerbar.default-decoration button.titlebutton:not(.appmenu) image,
+.default-decoration.titlebar:not(headerbar) button.titlebutton:not(.appmenu) image,
+.ssd .titlebar.default-decoration button.titlebutton:not(.appmenu) image {
+  margin: -1px;
+  opacity: 0;
+}
+
+headerbar.default-decoration button.titlebutton:not(.appmenu):hover image,
+.default-decoration.titlebar:not(headerbar) button.titlebutton:not(.appmenu):hover image,
+.ssd .titlebar.default-decoration button.titlebutton:not(.appmenu):hover image {
+  opacity: 0.65;
+}
+
+headerbar.default-decoration button.titlebutton.close:not(.appmenu),
+.default-decoration.titlebar:not(headerbar) button.titlebutton.close:not(.appmenu),
+.ssd .titlebar.default-decoration button.titlebutton.close:not(.appmenu) {
+  background-color: #ff5f57;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.45), 0 0 8px rgba(255, 95, 87, {{glowa:0.45}});
+}
+
+headerbar.default-decoration button.titlebutton.minimize:not(.appmenu),
+.default-decoration.titlebar:not(headerbar) button.titlebutton.minimize:not(.appmenu),
+.ssd .titlebar.default-decoration button.titlebutton.minimize:not(.appmenu) {
+  background-color: #febc2e;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.50), 0 0 8px rgba(254, 188, 46, {{glowa:0.45}});
+}
+
+headerbar.default-decoration button.titlebutton.maximize:not(.appmenu),
+.default-decoration.titlebar:not(headerbar) button.titlebutton.maximize:not(.appmenu),
+.ssd .titlebar.default-decoration button.titlebutton.maximize:not(.appmenu) {
+  background-color: #28c840;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.45), 0 0 8px rgba(40, 200, 64, {{glowa:0.45}});
+}
+
+headerbar.default-decoration button.titlebutton:not(.appmenu):backdrop,
+.default-decoration.titlebar:not(headerbar) button.titlebutton:not(.appmenu):backdrop,
+.ssd .titlebar.default-decoration button.titlebutton:not(.appmenu):backdrop {
+  background-color: alpha(currentColor, 0.22);
+  box-shadow: none;
+}
+/*{{/traffic}}*/
+
+/* ── Pulsanti ─────────────────────────────────────────────────────────── */
+
+button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action):not(.link):not(:checked) {
+  background-image: linear-gradient(to bottom, @g_sheen_a, @g_sheen_b);
+  box-shadow: inset 0 1px @g_hi, 0 1px 2px @g_inset;
+}
+
+button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action):not(.link):not(:checked):hover {
+  box-shadow: inset 0 1px @g_hi, 0 2px 8px @g_inset;
+}
+
+button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action):not(.link):active,
+button:not(.flat):not(.titlebutton):not(.suggested-action):not(.destructive-action):not(.link):checked {
+  background-image: none;
+  box-shadow: inset 0 1px 3px @g_inset;
+}
+
+button.suggested-action,
+headerbar button.suggested-action,
+.titlebar button.suggested-action {
+  color: @accent_fg_color;
+  background-image: linear-gradient(to bottom, mix(@accent_bg_color, white, 0.14), @accent_bg_color 90%);
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.40),
+    inset 0 0 0 1px alpha(@accent_bg_color, 0.6),
+    0 4px 14px alpha(@accent_bg_color, {{glowa:0.45}});
+}
+
+button.suggested-action:hover {
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.50),
+    inset 0 0 0 1px alpha(@accent_bg_color, 0.6),
+    0 6px 22px alpha(@accent_bg_color, 0.60);
+}
+
+button.suggested-action:active {
+  background-image: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 10, 0.30);
+}
+
+button.destructive-action,
+headerbar button.destructive-action,
+.titlebar button.destructive-action {
+  color: @destructive_fg_color;
+  background-image: linear-gradient(to bottom, mix(@destructive_bg_color, white, 0.14), @destructive_bg_color 90%);
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.38),
+    inset 0 0 0 1px alpha(@destructive_bg_color, 0.6),
+    0 4px 14px alpha(@destructive_bg_color, {{glowa:0.40}});
+}
+
+button.destructive-action:hover {
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.48),
+    inset 0 0 0 1px alpha(@destructive_bg_color, 0.6),
+    0 6px 22px alpha(@destructive_bg_color, {{glowa:0.55}});
+}
+
+button.destructive-action:active {
+  background-image: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 10, 0.30);
+}
+
+/* ── Campi di testo ───────────────────────────────────────────────────── */
+
+entry,
+spinbutton {
+  border-radius: {{r}}px;
+  box-shadow: inset 0 1px 3px @g_inset, 0 0 0 1px @g_line, 0 1px 0 @g_hi;
+  transition: {{ms:240}} cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+entry:focus,
+spinbutton:focus {
+  box-shadow:
+    inset 0 1px 3px @g_inset,
+    0 0 0 1px alpha(@accent_bg_color, 0.7),
+    0 0 16px alpha(@accent_bg_color, {{glowa:0.40}});
+}
+
+entry.search,
+.search entry {
+  border-radius: 9999px;
+}
+
+/* ── Interruttori, spunte, cursori, barre ─────────────────────────────── */
+
+switch {
+  box-shadow: inset 0 1px 3px @g_inset, 0 0 0 1px @g_line;
+  transition: {{ms:260}} cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+switch:checked {
+  background-image: linear-gradient(to bottom, mix(@accent_bg_color, white, 0.2), @accent_bg_color);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.35), 0 0 14px alpha(@accent_bg_color, {{glowa:0.55}});
+}
+
+switch slider {
+  background-color: #ffffff;
+  background-image: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 10, 0.35), 0 0 0 1px rgba(0, 0, 10, {{shadow:0.10}});
+}
+
+check:checked,
+radio:checked,
+check:indeterminate,
+radio:indeterminate {
+  background-image: linear-gradient(to bottom, mix(@accent_bg_color, white, 0.2), @accent_bg_color);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.35), 0 0 10px alpha(@accent_bg_color, {{glowa:0.50}});
+}
+
+scale trough highlight,
+progressbar trough progress {
+  background-image: linear-gradient(to right, @accent_bg_color, mix(@accent_bg_color, #c561ff, 0.3));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.35), 0 0 12px alpha(@accent_bg_color, {{glowa:0.50}});
+}
+
+scale slider {
+  background-color: #ffffff;
+  background-image: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 10, 0.35), 0 0 0 1px rgba(0, 0, 10, {{shadow:0.12}});
+  transition: {{ms:240}} cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+scale slider:hover {
+  box-shadow: 0 3px 12px rgba(0, 0, 10, 0.38), 0 0 12px alpha(@accent_bg_color, {{glowa:0.40}});
+}
+
+/* ── Barre laterali, liste, schede ────────────────────────────────────── */
+
+.sidebar,
+placessidebar,
+list.navigation-sidebar {
+  background-image: linear-gradient(to bottom, @g_sheen_a, @g_sheen_b 40%);
+}
+
+placessidebar row:selected,
+.sidebar row:selected,
+list.navigation-sidebar row:selected {
+  color: @accent_fg_color;
+  background-color: alpha(@accent_bg_color, 0.88);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 70%);
+  border-radius: {{r-1}}px;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.35), 0 3px 12px alpha(@accent_bg_color, {{glowa:0.45}});
+}
+
+placessidebar row:selected:backdrop,
+.sidebar row:selected:backdrop,
+list.navigation-sidebar row:selected:backdrop {
+  color: @sidebar_fg_color;
+  background-color: alpha(currentColor, 0.14);
+  background-image: none;
+  box-shadow: none;
+}
+
+notebook > header > tabs > tab {
+  transition: {{ms:180}} cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+notebook > header > tabs > tab:checked {
+  box-shadow: inset 0 1px @g_hi, 0 1px 4px @g_inset;
+}
+
+/* ── Menu, popover, tooltip ───────────────────────────────────────────── */
+
+menu,
+.menu,
+.context-menu,
+popover.background {
+  border-radius: {{r+4}}px;
+  box-shadow:
+    inset 0 1px @g_hi,
+    0 0 0 1px @g_line,
+    0 18px 44px @g_pop;
+}
+
+menuitem:hover,
+.menu menuitem:hover,
+modelbutton:hover {
+  color: @accent_fg_color;
+  background-color: @accent_bg_color;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+  border-radius: {{r-2}}px;
+}
+
+tooltip.background {
+  border-radius: 10px;
+  background-color: rgba(28, 28, 44, 0.92);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px rgba(255, 255, 255, 0.16),
+    0 0 0 1px rgba(255, 255, 255, 0.10),
+    0 8px 24px rgba(0, 0, 10, 0.45);
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────────── */
+
+scrollbar slider:hover {
+  background-color: alpha(@accent_bg_color, 0.7);
+}

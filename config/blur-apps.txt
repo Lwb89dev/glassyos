@@ -1,0 +1,35 @@
+# App (app-id Wayland / WM_CLASS) con lo sfocato dietro la finestra. Una per riga.
+# Solo app GTK4/libadwaita: sono quelle con lo sfondo traslucido del tema Glassy.
+# Per aggiungerne una: apri Looking Glass (Alt+F2, scrivi "lg", scheda "Windows")
+# per leggere il wm_class della finestra, aggiungilo qui sotto e riesegui ./install.sh.
+org.gnome.Nautilus
+org.gnome.Settings
+org.gnome.TextEditor
+org.gnome.Calculator
+org.gnome.Calendar
+org.gnome.Console
+org.gnome.Ptyxis
+org.gnome.Terminal
+gnome-terminal-server
+org.gnome.SystemMonitor
+org.gnome.Software
+org.gnome.Characters
+org.gnome.clocks
+org.gnome.Contacts
+org.gnome.Maps
+org.gnome.Weather
+org.gnome.Music
+org.gnome.baobab
+org.gnome.DiskUtility
+org.gnome.Papers
+org.gnome.Evince
+org.gnome.FileRoller
+org.gnome.font-viewer
+org.gnome.Logs
+org.gnome.Extensions
+org.gnome.tweaks
+org.gnome.Snapshot
+org.gnome.Loupe
+org.gnome.Showtime
+org.gnome.Decibels
+org.gnome.Boxes

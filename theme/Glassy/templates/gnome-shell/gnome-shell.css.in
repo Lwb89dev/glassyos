@@ -1,0 +1,459 @@
+/*
+ * Glassy — GNOME Shell
+ *
+ * Solo override: la shell carica sempre il suo CSS di default sotto questo file.
+ * Vetro scuro in ogni modalità: i colori del testo sono ridichiarati nei nodi
+ * ridisegnati, così restano leggibili anche con lo schema di sistema "chiaro".
+ *
+ * Limiti di St (il motore CSS della shell):
+ *  - niente linear-gradient(): si usa background-gradient-start/end/direction;
+ *  - un solo box-shadow per nodo: bordo chiaro = "luce", ombra = profondità/alone;
+ *  - lo sfocato vero non è CSS: lo dà l'estensione Blur my Shell, che si appoggia
+ *    ai fondi traslucidi definiti qui.
+ *
+ * L'accento è quello di Impostazioni → Aspetto (-st-accent-color).
+ */
+
+/* ── Barra superiore ─────────────────────────────────────────────────── */
+
+#panel {
+  background-gradient-direction: vertical;
+  background-gradient-start: rgba(44, 44, 74, {{sa:0.62}});
+  background-gradient-end: rgba(26, 26, 46, {{sa:0.46}});
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 2px 14px 0 rgba(0, 0, 10, {{shadow:0.25}});
+  font-weight: 600;
+  transition-duration: {{ms:300}};
+}
+
+#panel .panel-button {
+  transition-duration: {{ms:200}};
+}
+
+/* ── Menu e popover ──────────────────────────────────────────────────── */
+
+.popup-menu-content,
+.candidate-popup-content {
+  padding: 8px;
+  background-color: rgba(34, 34, 58, {{sa:0.90}});
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 18px 44px 0 rgba(0, 0, 10, {{shadow:0.50}});
+  color: #ffffff;
+}
+
+.popup-menu {
+  color: #ffffff;
+}
+
+.popup-menu-item {
+  color: #ffffff;
+  border-radius: 10px;
+  transition-duration: {{ms:120}};
+}
+
+.popup-menu-item:hover,
+.popup-menu-item:focus,
+.popup-menu-item:selected,
+.popup-menu-item:checked {
+  color: -st-accent-fg-color;
+  background-color: st-transparentize(-st-accent-color, 0.15);
+}
+
+.popup-menu-item:active {
+  color: -st-accent-fg-color;
+  background-color: -st-accent-color;
+}
+
+.popup-menu-item:insensitive {
+  color: rgba(255, 255, 255, 0.45);
+  background-color: transparent;
+}
+
+.popup-inactive-menu-item {
+  color: #ffffff;
+}
+
+.popup-separator-menu-item .popup-separator-menu-item-separator {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.popup-sub-menu {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Interruttori, cursori, spunte ───────────────────────────────────── */
+
+.toggle-switch {
+  background: rgba(255, 255, 255, 0.18);
+  transition-duration: {{ms:220}};
+}
+
+.toggle-switch:checked {
+  background-gradient-direction: vertical;
+  background-gradient-start: st-lighten(-st-accent-color, 12%);
+  background-gradient-end: -st-accent-color;
+  box-shadow: 0 0 12px 0 st-transparentize(-st-accent-color, {{glowt:0.5}});
+}
+
+.toggle-switch .handle {
+  background: #ffffff;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 10, {{shadow:0.35}});
+  transition-duration: {{ms:220}};
+}
+
+.slider {
+  color: #ffffff;
+  -barlevel-height: 6px;
+  -barlevel-background-color: rgba(255, 255, 255, 0.16);
+  -barlevel-active-background-color: -st-accent-color;
+  -slider-handle-radius: 9px;
+}
+
+.check-box:checked StIcon {
+  background-color: -st-accent-color;
+  box-shadow: 0 0 10px 0 st-transparentize(-st-accent-color, {{glowt:0.5}});
+}
+
+/* ── Pulsanti ────────────────────────────────────────────────────────── */
+
+.button {
+  color: #ffffff;
+  border-radius: 999px;
+  background-gradient-direction: vertical;
+  background-gradient-start: rgba(255, 255, 255, 0.20);
+  background-gradient-end: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 10, {{shadow:0.25}});
+  transition-duration: {{ms:160}};
+}
+
+.button:hover,
+.button:focus {
+  background-gradient-start: rgba(255, 255, 255, 0.28);
+  background-gradient-end: rgba(255, 255, 255, 0.16);
+}
+
+.button:active,
+.button:checked {
+  background-gradient-start: rgba(255, 255, 255, 0.10);
+  background-gradient-end: rgba(255, 255, 255, 0.18);
+}
+
+.button:insensitive {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.button.default,
+.modal-dialog .modal-dialog-button-box .modal-dialog-button.default {
+  color: -st-accent-fg-color;
+  background-gradient-start: st-lighten(-st-accent-color, 12%);
+  background-gradient-end: -st-accent-color;
+  border: 1px solid st-transparentize(-st-accent-color, 0.4);
+  box-shadow: 0 4px 14px 0 st-transparentize(-st-accent-color, {{glowt:0.55}});
+}
+
+.button.default:hover,
+.button.default:focus {
+  background-gradient-start: st-lighten(-st-accent-color, 20%);
+  background-gradient-end: st-lighten(-st-accent-color, 5%);
+}
+
+.icon-button {
+  color: #ffffff;
+}
+
+StEntry {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  transition-duration: {{ms:200}};
+}
+
+StEntry:hover {
+  background-color: rgba(255, 255, 255, 0.13);
+}
+
+StEntry:focus {
+  background-color: rgba(255, 255, 255, 0.10);
+  border: 1px solid st-transparentize(-st-accent-color, 0.25);
+  box-shadow: 0 0 16px 0 st-transparentize(-st-accent-color, {{glowt:0.55}}) !important;
+}
+
+/* ── Impostazioni rapide ─────────────────────────────────────────────── */
+
+.quick-settings {
+  border-radius: 32px;
+}
+
+.quick-toggle,
+.quick-toggle-has-menu .quick-toggle-menu-button {
+  color: #ffffff;
+  background-gradient-direction: vertical;
+  background-gradient-start: rgba(255, 255, 255, 0.16);
+  background-gradient-end: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  transition-duration: {{ms:200}};
+}
+
+.quick-toggle:hover,
+.quick-toggle:focus,
+.quick-toggle-has-menu .quick-toggle-menu-button:hover,
+.quick-toggle-has-menu .quick-toggle-menu-button:focus {
+  background-gradient-start: rgba(255, 255, 255, 0.24);
+  background-gradient-end: rgba(255, 255, 255, 0.13);
+}
+
+.quick-toggle:checked,
+.quick-toggle-has-menu:checked .quick-toggle-menu-button {
+  color: -st-accent-fg-color;
+  background-gradient-start: st-lighten(-st-accent-color, 12%);
+  background-gradient-end: -st-accent-color;
+  border: 1px solid st-transparentize(-st-accent-color, 0.4);
+  box-shadow: 0 4px 16px 0 st-transparentize(-st-accent-color, {{glowt:0.55}});
+}
+
+.quick-toggle:checked:hover,
+.quick-toggle:checked:focus {
+  background-gradient-start: st-lighten(-st-accent-color, 20%);
+  background-gradient-end: st-lighten(-st-accent-color, 5%);
+}
+
+.quick-toggle-menu {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 24px;
+  color: #ffffff;
+}
+
+.quick-slider .slider {
+  -barlevel-height: 8px;
+}
+
+/* ── Calendario, notifiche e messaggi ────────────────────────────────── */
+
+.datemenu-popover,
+.datemenu-calendar-column,
+.message-list {
+  color: #ffffff;
+}
+
+.calendar,
+.datemenu-today-button,
+.events-button,
+.world-clocks-button,
+.weather-button {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+}
+
+.events-button:hover,
+.events-button:focus,
+.world-clocks-button:hover,
+.world-clocks-button:focus,
+.weather-button:hover,
+.weather-button:focus,
+.datemenu-today-button:hover,
+.datemenu-today-button:focus {
+  background-color: rgba(255, 255, 255, 0.13);
+}
+
+.calendar .calendar-day:selected,
+.calendar .calendar-today {
+  color: -st-accent-fg-color;
+  background-color: -st-accent-color;
+  box-shadow: 0 0 12px 0 st-transparentize(-st-accent-color, {{glowt:0.5}});
+}
+
+.message {
+  color: #ffffff;
+  border-radius: 18px;
+  background-color: rgba(60, 60, 94, {{sa:0.82}});
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.message:second-in-stack,
+.message:lower-in-stack {
+  background-color: rgba(50, 50, 80, {{sa:0.60}});
+}
+
+.notification-banner {
+  border-radius: 22px;
+  box-shadow: 0 14px 36px 0 rgba(0, 0, 10, {{shadow:0.45}});
+  margin: 6px;
+}
+
+/* ── Panoramica ──────────────────────────────────────────────────────── */
+
+.search-entry {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  transition-duration: {{ms:220}};
+}
+
+.search-entry:focus {
+  background-color: rgba(255, 255, 255, 0.18);
+  border: 1px solid st-transparentize(-st-accent-color, 0.2);
+  box-shadow: 0 0 22px 0 st-transparentize(-st-accent-color, {{glowt:0.5}}) !important;
+}
+
+.workspace-thumbnails .workspace-thumbnail {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.workspace-thumbnail-indicator {
+  border-radius: 12px;
+  border: 3px solid -st-accent-color;
+  box-shadow: 0 0 16px 0 st-transparentize(-st-accent-color, {{glowt:0.45}});
+}
+
+.overview-tile:hover .overview-icon,
+.overview-tile:focus .overview-icon,
+.grid-search-result:hover .overview-icon {
+  background-color: rgba(255, 255, 255, 0.16);
+  border-radius: 20px;
+}
+
+.app-folder {
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.app-folder-dialog {
+  border-radius: 32px;
+  background-color: rgba(34, 34, 58, {{sa:0.80}});
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.page-indicator .page-indicator-icon {
+  transition-duration: {{ms:200}};
+}
+
+/* ── Dock / dash ─────────────────────────────────────────────────────── */
+/* Vale per il dash di GNOME e per Dash to Dock (stessi nodi sotto #dash). */
+
+#dash .dash-background,
+#dashtodockContainer #dash .dash-background,
+#dashtodockContainer.bottom #dash .dash-background,
+#dashtodockContainer.bottom.shrink #dash .dash-background {
+  background-gradient-direction: vertical;
+  background-gradient-start: rgba(255, 255, 255, 0.26);
+  background-gradient-end: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 26px;
+  box-shadow: 0 16px 40px 0 rgba(0, 0, 10, {{shadow:0.40}});
+}
+
+#dash .dash-item-container .overview-tile .overview-icon,
+#dash .dash-item-container .show-apps .overview-icon,
+#dashtodockContainer.bottom #dash .dash-item-container .overview-tile .overview-icon,
+#dashtodockContainer.bottom #dash .dash-item-container .show-apps .overview-icon {
+  background-color: transparent;
+  border-radius: 16px;
+  transition-duration: {{ms:200}};
+}
+
+#dash .dash-item-container .overview-tile:hover .overview-icon,
+#dash .dash-item-container .show-apps:hover .overview-icon,
+#dashtodockContainer.bottom #dash .dash-item-container .overview-tile:hover .overview-icon,
+#dashtodockContainer.bottom #dash .dash-item-container .show-apps:hover .overview-icon {
+  background-color: rgba(255, 255, 255, 0.20);
+  box-shadow: 0 0 18px 0 st-transparentize(-st-accent-color, {{glowt:0.65}});
+}
+
+#dash .dash-item-container .overview-tile:active .overview-icon,
+#dash .dash-item-container .show-apps:active .overview-icon {
+  background-color: rgba(255, 255, 255, 0.30);
+}
+
+#dash .dash-item-container .overview-tile:focus .overview-icon,
+#dash .dash-item-container .show-apps:focus .overview-icon,
+#dashtodockContainer.bottom #dash .dash-item-container .overview-tile.focused .overview-icon,
+#dashtodockContainer.bottom #dash .dash-item-container .app-well-app.focused .overview-icon {
+  background-color: rgba(255, 255, 255, 0.18);
+}
+
+/* Punto delle app in esecuzione: piccolo, bianco, con un filo di luce. */
+.app-well-app-running-dot,
+.app-grid-running-dot {
+  background-color: #ffffff;
+  border-radius: 999px;
+  width: 5px;
+  height: 5px;
+  box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.55);
+}
+
+#dash .dash-separator,
+#dashtodockContainer.bottom #dash .dash-separator {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+.dash-label,
+.window-caption,
+.screenshot-ui-tooltip {
+  color: #ffffff;
+  background-color: rgba(28, 28, 46, {{sa:0.88}});
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 10, {{shadow:0.45}});
+}
+
+/* ── OSD, selettore finestre, dialoghi ───────────────────────────────── */
+
+/* Raggio = metà dell'altezza, non 999px: con un'ombra, St userebbe il raggio così com'è e disegnerebbe
+   un rettangolo dietro la pillola. */
+.osd-window {
+  color: #ffffff;
+  padding: 14px 22px;
+  border-radius: 30px;
+  background-color: rgba(34, 34, 58, {{sa:0.90}});
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 14px 36px 0 rgba(0, 0, 10, {{shadow:0.45}});
+}
+
+.osd-window .level {
+  -barlevel-height: 8px;
+  -barlevel-background-color: rgba(255, 255, 255, 0.16);
+  -barlevel-active-background-color: -st-accent-color;
+}
+
+.switcher-list {
+  background-color: rgba(34, 34, 58, {{sa:0.90}});
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  box-shadow: 0 18px 44px 0 rgba(0, 0, 10, {{shadow:0.50}});
+}
+
+.switcher-list .item-box {
+  color: #ffffff;
+  border-radius: 20px;
+  transition-duration: {{ms:160}};
+}
+
+.switcher-list .item-box:hover,
+.switcher-list .item-box:selected {
+  background-color: st-transparentize(-st-accent-color, 0.45);
+  box-shadow: 0 0 18px 0 st-transparentize(-st-accent-color, {{glowt:0.55}});
+}
+
+.modal-dialog {
+  color: #ffffff;
+  background-color: rgba(34, 34, 58, {{sa:0.94}});
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  box-shadow: 0 24px 60px 0 rgba(0, 0, 10, {{shadow:0.55}});
+}
+
+.modal-dialog .modal-dialog-button-box .modal-dialog-button {
+  border-radius: 999px;
+}

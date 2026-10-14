@@ -1,0 +1,132 @@
+/* Glassy Desktop — dock, launcher, barra. Solo proprietà che St capisce:
+   niente linear-gradient(), un solo box-shadow per nodo. */
+
+/* ── Dock ───────────────────────────────────────────────────────────── */
+
+.glassy-dock-pill {
+  background-gradient-direction: vertical;
+  background-gradient-start: rgba(255, 255, 255, 0.30);
+  background-gradient-end: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 26px;
+  box-shadow: 0 16px 40px 0 rgba(0, 0, 10, 0.40);
+}
+
+.glassy-dock-item {
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.glassy-dock-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.55);
+}
+
+.glassy-dock-sep {
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.30);
+}
+
+.glassy-dock-label {
+  color: #ffffff;
+  font-weight: 600;
+  padding: 5px 13px;
+  border-radius: 12px;
+  background-color: rgba(28, 28, 46, 0.90);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 10, 0.45);
+}
+
+/* ── Launchpad ──────────────────────────────────────────────────────── */
+
+.glassy-launchpad {
+  background-gradient-direction: vertical;
+  background-gradient-start: rgba(30, 24, 70, 0.40);
+  background-gradient-end: rgba(10, 12, 40, 0.52);
+}
+
+.glassy-launchpad-search {
+  color: #ffffff;
+  caret-color: #ffffff;
+  font-size: 15px;
+  padding: 9px 16px;
+  min-height: 22px;
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  selection-background-color: -st-accent-color;
+  transition-duration: 200ms;
+}
+
+.glassy-launchpad-search:focus {
+  background-color: rgba(255, 255, 255, 0.22);
+  border: 1px solid st-transparentize(-st-accent-color, 0.15);
+  box-shadow: 0 0 24px 0 st-transparentize(-st-accent-color, 0.45);
+}
+
+.glassy-launchpad-search-icon {
+  color: rgba(255, 255, 255, 0.75);
+  icon-size: 16px;
+  padding-right: 6px;
+}
+
+.glassy-launchpad-item {
+  border-radius: 22px;
+  padding: 10px 4px 4px 4px;
+  background-color: transparent;
+  transition-duration: 160ms;
+}
+
+.glassy-launchpad-item:hover,
+.glassy-launchpad-item:focus {
+  background-color: rgba(255, 255, 255, 0.13);
+}
+
+.glassy-launchpad-label {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 8px;
+  text-align: center;
+  text-shadow: 0 1px 4px rgba(0, 0, 10, 0.7);
+}
+
+.glassy-launchpad-empty {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.glassy-launchpad-dots {
+  spacing: 14px;
+}
+
+.glassy-launchpad-dot {
+  border-radius: 999px;
+  background-color: rgba(255, 255, 255, 0.35);
+  transition-duration: 200ms;
+}
+
+.glassy-launchpad-dot:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.glassy-launchpad-dot:active,
+.glassy-launchpad-dot:checked {
+  background-color: #ffffff;
+}
+
+/* ── Barra superiore ────────────────────────────────────────────────── */
+
+.glassy-panel-appname {
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0 6px;
+}

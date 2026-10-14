@@ -1,0 +1,39 @@
+# Impostazioni delle estensioni applicate da install.sh.
+# Formato: schema | chiave | valore (testo GVariant, come per `gsettings set`)
+# Le righe vuote e quelle che iniziano con # sono ignorate. Se un'estensione non è
+# stata installata (es. offline) le sue righe vengono saltate.
+#
+# Il segnaposto @WHITELIST@ è l'elenco delle app da sfocare dietro la finestra
+# (Blur my Shell → Applicazioni), generato dall'installer da config/blur-apps.txt.
+
+# ── Blur my Shell: lo sfocato vero (il CSS da solo non può) ──────────────
+# Una sola pipeline "vetro" condivisa: sfocatura gaussiana + angoli arrotondati.
+org.gnome.shell.extensions.blur-my-shell | pipelines | {'pipeline_default': {'name': <'Glassy'>, 'effects': <[<{'type': <'native_static_gaussian_blur'>, 'id': <'effect_000000000000'>, 'params': <{'radius': <36>, 'brightness': <0.88>}>}>]>}, 'pipeline_default_rounded': {'name': <'Glassy rounded'>, 'effects': <[<{'type': <'native_static_gaussian_blur'>, 'id': <'effect_000000000001'>, 'params': <{'radius': <36>, 'brightness': <0.88>}>}>, <{'type': <'corner'>, 'id': <'effect_000000000002'>, 'params': <{'radius': <24>}>}>]>}}
+
+# Il fondo traslucido lo disegna il tema (gnome-shell.css): Blur my Shell sfoca e basta.
+org.gnome.shell.extensions.blur-my-shell.panel        | blur                | true
+org.gnome.shell.extensions.blur-my-shell.panel        | override-background | false
+org.gnome.shell.extensions.blur-my-shell.panel        | static-blur         | true
+# Il dock di Glassy si sfoca da solo: qui l'integrazione con Dash to Dock va spenta.
+org.gnome.shell.extensions.blur-my-shell.dash-to-dock | blur                | false
+org.gnome.shell.extensions.blur-my-shell.overview     | blur                | true
+org.gnome.shell.extensions.blur-my-shell.appfolder    | blur                | true
+org.gnome.shell.extensions.blur-my-shell.lockscreen   | blur                | true
+org.gnome.shell.extensions.blur-my-shell.screenshot   | blur                | true
+
+# Menu, impostazioni rapide, notifiche, OSD, dialoghi: SENZA sfocato.
+# Lo sfocato dinamico dei popup ritaglia gli angoli solo se Shell.BlurEffect ha la proprietà
+# `corner-radius`, che in GNOME 50.5 non esiste: dietro ogni popup arrotondato comparirebbe un
+# rettangolo scuro. Il tema compensa con fondi più pieni.
+org.gnome.shell.extensions.blur-my-shell.popup | blur | false
+
+# Finestre delle app: sfocato dietro le finestre traslucide (solo l'elenco, non tutte).
+# opacity=255 → la finestra non viene sbiadita; è il CSS GTK a lasciar vedere lo sfocato.
+org.gnome.shell.extensions.blur-my-shell.applications | blur                  | true
+org.gnome.shell.extensions.blur-my-shell.applications | enable-all            | false
+org.gnome.shell.extensions.blur-my-shell.applications | whitelist             | @WHITELIST@
+org.gnome.shell.extensions.blur-my-shell.applications | opacity               | 255
+org.gnome.shell.extensions.blur-my-shell.applications | dynamic-opacity       | false
+org.gnome.shell.extensions.blur-my-shell.applications | static-blur           | false
+org.gnome.shell.extensions.blur-my-shell.applications | corner-radius         | 12
+org.gnome.shell.extensions.blur-my-shell.applications | unblur-when-fullscreen | true

@@ -1,0 +1,50 @@
+/* Glassy GTK3 — palette scura (stessi valori della versione GTK4) */
+@define-color destructive_bg_color #ff453a;
+@define-color destructive_fg_color #ffffff;
+@define-color success_bg_color #2fb862;
+@define-color success_fg_color #ffffff;
+@define-color warning_bg_color #ff9f0a;
+@define-color warning_fg_color rgba(0, 0, 0, 0.85);
+@define-color error_bg_color #ff453a;
+@define-color error_fg_color #ffffff;
+
+@define-color window_bg_color rgba(24, 24, 40, {{a:0.64}});
+@define-color window_fg_color rgba(255, 255, 255, 0.94);
+@define-color view_bg_color rgba(18, 18, 30, {{a:0.72}});
+@define-color view_fg_color rgba(255, 255, 255, 0.94);
+@define-color headerbar_bg_color rgba(52, 52, 80, {{a:0.40}});
+@define-color headerbar_fg_color #ffffff;
+@define-color headerbar_border_color #ffffff;
+@define-color headerbar_backdrop_color rgba(34, 34, 52, {{a:0.42}});
+@define-color headerbar_shade_color rgba(0, 0, 10, 0.40);
+@define-color headerbar_darker_shade_color rgba(0, 0, 10, 0.55);
+@define-color sidebar_bg_color rgba(36, 36, 62, {{a:0.44}});
+@define-color sidebar_fg_color #ffffff;
+@define-color sidebar_backdrop_color rgba(30, 30, 48, {{a:0.48}});
+@define-color sidebar_shade_color rgba(0, 0, 10, 0.30);
+@define-color sidebar_border_color rgba(0, 0, 10, 0.40);
+@define-color card_bg_color rgba(255, 255, 255, 0.075);
+@define-color card_fg_color #ffffff;
+@define-color card_shade_color rgba(0, 0, 10, 0.36);
+@define-color dialog_bg_color rgba(36, 36, 56, 0.95);
+@define-color dialog_fg_color #ffffff;
+@define-color popover_bg_color rgba(40, 40, 62, 0.95);
+@define-color popover_fg_color #ffffff;
+@define-color popover_shade_color rgba(0, 0, 10, 0.30);
+@define-color thumbnail_bg_color rgba(58, 58, 84, 0.90);
+@define-color thumbnail_fg_color #ffffff;
+@define-color shade_color rgba(0, 0, 10, 0.32);
+@define-color scrollbar_outline_color rgba(0, 0, 12, 0.90);
+
+/* Luce */
+@define-color g_rim rgba(255, 255, 255, 0.16);
+@define-color g_hi rgba(255, 255, 255, 0.20);
+@define-color g_line rgba(255, 255, 255, 0.10);
+@define-color g_sheen_a rgba(255, 255, 255, 0.13);
+@define-color g_sheen_b rgba(255, 255, 255, 0);
+@define-color g_inset rgba(0, 0, 10, 0.40);
+@define-color g_drop rgba(0, 0, 10, {{shadow:0.45}});
+@define-color g_pop rgba(0, 0, 10, {{shadow:0.60}});
+
+/* Barre del titolo disegnate su fondo opaco (decorazioni lato server): niente vetro, colore pieno */
+@define-color g_titlebar_solid #262638;

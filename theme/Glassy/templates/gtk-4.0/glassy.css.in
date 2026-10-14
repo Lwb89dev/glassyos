@@ -1,0 +1,752 @@
+/*
+ * Glassy — GTK 4 / libadwaita
+ *
+ * Vetro smerigliato, luce sui bordi, accenti vivaci e transizioni morbide.
+ * Chiaro e scuro sono gestiti da @media (prefers-color-scheme); il colore
+ * d'accento segue quello scelto in Impostazioni → Aspetto.
+ *
+ * Questo file viene caricato sopra libadwaita (priorità USER), quindi
+ * qui sotto basta sovrascrivere: niente copie dello stylesheet originale.
+ */
+
+/* ════════════════════════════════════════════════════════════════════════
+   1. Palette — chiaro
+   ════════════════════════════════════════════════════════════════════════ */
+
+@define-color destructive_bg_color #ff3b30;
+@define-color destructive_fg_color white;
+@define-color success_bg_color #26a85a;
+@define-color success_fg_color white;
+@define-color warning_bg_color #ff9f0a;
+@define-color warning_fg_color rgba(0, 0, 0, 0.85);
+@define-color error_bg_color #ff3b30;
+@define-color error_fg_color white;
+
+@define-color window_bg_color rgba(246, 247, 253, {{a:0.72}});
+@define-color window_fg_color rgba(16, 16, 40, 0.88);
+@define-color view_bg_color rgba(255, 255, 255, {{a:0.80}});
+@define-color view_fg_color rgba(16, 16, 40, 0.88);
+@define-color headerbar_bg_color rgba(255, 255, 255, {{a:0.46}});
+@define-color headerbar_fg_color rgba(16, 16, 40, 0.90);
+@define-color headerbar_border_color rgba(16, 16, 40, 0.90);
+@define-color headerbar_backdrop_color rgba(250, 250, 255, {{a:0.45}});
+@define-color headerbar_shade_color rgba(30, 30, 90, 0.10);
+@define-color headerbar_darker_shade_color rgba(30, 30, 90, 0.16);
+@define-color sidebar_bg_color rgba(222, 228, 250, {{a:0.48}});
+@define-color sidebar_fg_color rgba(16, 16, 40, 0.88);
+@define-color sidebar_backdrop_color rgba(236, 239, 252, {{a:0.50}});
+@define-color sidebar_shade_color rgba(30, 30, 90, 0.08);
+@define-color sidebar_border_color rgba(30, 30, 90, 0.09);
+@define-color secondary_sidebar_bg_color rgba(238, 241, 253, {{a:0.58}});
+@define-color secondary_sidebar_fg_color rgba(16, 16, 40, 0.88);
+@define-color secondary_sidebar_backdrop_color rgba(243, 245, 254, {{a:0.50}});
+@define-color secondary_sidebar_shade_color rgba(30, 30, 90, 0.08);
+@define-color secondary_sidebar_border_color rgba(30, 30, 90, 0.09);
+@define-color card_bg_color rgba(255, 255, 255, 0.62);
+@define-color card_fg_color rgba(16, 16, 40, 0.88);
+@define-color card_shade_color rgba(30, 30, 90, 0.09);
+@define-color dialog_bg_color rgba(250, 250, 255, 0.95);
+@define-color dialog_fg_color rgba(16, 16, 40, 0.88);
+@define-color popover_bg_color rgba(252, 252, 255, 0.95);
+@define-color popover_fg_color rgba(16, 16, 40, 0.88);
+@define-color popover_shade_color rgba(30, 30, 90, 0.09);
+@define-color thumbnail_bg_color rgba(255, 255, 255, 0.90);
+@define-color thumbnail_fg_color rgba(16, 16, 40, 0.88);
+@define-color shade_color rgba(30, 30, 90, 0.09);
+@define-color scrollbar_outline_color rgba(255, 255, 255, 0.85);
+
+/* ── Palette — scuro ─────────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  @define-color destructive_bg_color #ff453a;
+  @define-color success_bg_color #2fb862;
+  @define-color warning_bg_color #ff9f0a;
+  @define-color error_bg_color #ff453a;
+
+  @define-color window_bg_color rgba(24, 24, 40, {{a:0.64}});
+  @define-color window_fg_color rgba(255, 255, 255, 0.94);
+  @define-color view_bg_color rgba(18, 18, 30, {{a:0.72}});
+  @define-color view_fg_color rgba(255, 255, 255, 0.94);
+  @define-color headerbar_bg_color rgba(52, 52, 80, {{a:0.40}});
+  @define-color headerbar_fg_color white;
+  @define-color headerbar_border_color white;
+  @define-color headerbar_backdrop_color rgba(34, 34, 52, {{a:0.42}});
+  @define-color headerbar_shade_color rgba(0, 0, 10, 0.40);
+  @define-color headerbar_darker_shade_color rgba(0, 0, 10, 0.55);
+  @define-color sidebar_bg_color rgba(36, 36, 62, {{a:0.44}});
+  @define-color sidebar_fg_color white;
+  @define-color sidebar_backdrop_color rgba(30, 30, 48, {{a:0.48}});
+  @define-color sidebar_shade_color rgba(0, 0, 10, 0.30);
+  @define-color sidebar_border_color rgba(0, 0, 10, 0.40);
+  @define-color secondary_sidebar_bg_color rgba(30, 30, 48, {{a:0.58}});
+  @define-color secondary_sidebar_fg_color white;
+  @define-color secondary_sidebar_backdrop_color rgba(26, 26, 42, {{a:0.48}});
+  @define-color secondary_sidebar_shade_color rgba(0, 0, 10, 0.30);
+  @define-color secondary_sidebar_border_color rgba(0, 0, 10, 0.40);
+  @define-color card_bg_color rgba(255, 255, 255, 0.075);
+  @define-color card_fg_color white;
+  @define-color card_shade_color rgba(0, 0, 10, 0.36);
+  @define-color dialog_bg_color rgba(36, 36, 56, 0.95);
+  @define-color dialog_fg_color white;
+  @define-color popover_bg_color rgba(40, 40, 62, 0.95);
+  @define-color popover_fg_color white;
+  @define-color popover_shade_color rgba(0, 0, 10, 0.30);
+  @define-color thumbnail_bg_color rgba(58, 58, 84, 0.90);
+  @define-color thumbnail_fg_color white;
+  @define-color shade_color rgba(0, 0, 10, 0.32);
+  @define-color scrollbar_outline_color rgba(0, 0, 12, 0.90);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   2. Variabili di tema
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --window-radius: {{radius}}px;
+
+  --g-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --g-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Luce: filo chiaro sul bordo alto, sfumatura speculare, linee sottili. */
+  --g-rim: rgba(255, 255, 255, 0.75);
+  --g-hi: rgba(255, 255, 255, 0.85);
+  --g-line: rgba(30, 30, 90, 0.11);
+  --g-sheen-a: rgba(255, 255, 255, 0.60);
+  --g-sheen-b: rgba(255, 255, 255, 0);
+  --g-inset: rgba(30, 30, 90, 0.10);
+  --g-drop: rgba(30, 30, 90, {{shadow:0.18}});
+  --g-pop: rgba(20, 20, 70, {{shadow:0.28}});
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --g-rim: rgba(255, 255, 255, 0.16);
+    --g-hi: rgba(255, 255, 255, 0.20);
+    --g-line: rgba(255, 255, 255, 0.10);
+    --g-sheen-a: rgba(255, 255, 255, 0.13);
+    --g-sheen-b: rgba(255, 255, 255, 0);
+    --g-inset: rgba(0, 0, 10, 0.40);
+    --g-drop: rgba(0, 0, 10, {{shadow:0.45}});
+    --g-pop: rgba(0, 0, 10, {{shadow:0.60}});
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   3. Finestre
+   ════════════════════════════════════════════════════════════════════════ */
+
+window.csd {
+  box-shadow:
+    0 0 0 1px var(--g-line),
+    0 16px 48px 4px var(--g-drop),
+    0 4px 14px rgba(0, 0, 10, {{shadow:0.16}});
+  outline: 1px solid var(--g-rim);
+  outline-offset: -1px;
+}
+
+window.csd:backdrop {
+  box-shadow:
+    0 0 0 1px var(--g-line),
+    0 10px 30px 2px rgba(0, 0, 10, {{shadow:0.12}}),
+    0 2px 8px rgba(0, 0, 10, {{shadow:0.10}});
+  outline-color: transparent;
+  transition: box-shadow {{ms:260}} var(--g-ease), outline-color {{ms:260}} var(--g-ease);
+}
+
+window.csd.dialog.message,
+window.csd.messagedialog {
+  box-shadow:
+    0 0 0 1px var(--g-line),
+    0 20px 56px 4px var(--g-drop);
+}
+
+window.csd.maximized,
+window.csd.fullscreen,
+window.csd.tiled,
+window.csd.tiled-top,
+window.csd.tiled-left,
+window.csd.tiled-right,
+window.csd.tiled-bottom {
+  outline: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   4. Barra del titolo e semafori
+   ════════════════════════════════════════════════════════════════════════ */
+
+headerbar {
+  background-image: linear-gradient(to bottom, var(--g-sheen-a), var(--g-sheen-b) 85%);
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    inset 0 -1px 0 var(--headerbar-shade-color);
+}
+
+headerbar:backdrop {
+  background-image: none;
+  box-shadow: inset 0 -1px 0 var(--headerbar-shade-color);
+  transition: background-color {{ms:260}} var(--g-ease);
+}
+
+/* Barre "flat" (dentro AdwToolbarView): nessun fondo proprio. */
+toolbarview > .top-bar headerbar,
+toolbarview > .bottom-bar headerbar,
+headerbar.flat {
+  background-image: none;
+  box-shadow: none;
+}
+
+headerbar .title,
+headerbar windowtitle .title {
+  font-weight: 650;
+}
+
+headerbar windowtitle .subtitle {
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+/*{{#traffic}}*/
+/* Semafori stile Mac: tre pastiglie colorate, icone visibili al passaggio. */
+windowcontrols {
+  border-spacing: 8px;
+  padding: 0 4px;
+}
+
+windowcontrols > button {
+  min-width: 0;
+  min-height: 0;
+  padding: 4px 0;
+  margin: 0;
+}
+
+windowcontrols > button > image {
+  min-width: 13px;
+  min-height: 13px;
+  padding: 0;
+  border-radius: 50%;
+  -gtk-icon-size: 9px;
+  color: transparent;
+  transition:
+    background-color {{ms:160}} var(--g-ease),
+    box-shadow {{ms:200}} var(--g-ease),
+    color {{ms:120}} linear,
+    transform {{ms:200}} var(--g-spring);
+}
+
+windowcontrols > button.close > image {
+  background-color: #ff5f57;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 0 0 1px rgba(160, 20, 10, 0.35), 0 0 8px rgba(255, 95, 87, {{glowa:0.45}});
+}
+
+windowcontrols > button.minimize > image {
+  background-color: #febc2e;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.50), inset 0 0 0 1px rgba(160, 100, 0, 0.35), 0 0 8px rgba(254, 188, 46, {{glowa:0.45}});
+}
+
+windowcontrols > button.maximize > image {
+  background-color: #28c840;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 0 0 1px rgba(10, 110, 30, 0.35), 0 0 8px rgba(40, 200, 64, {{glowa:0.45}});
+}
+
+windowcontrols:hover > button > image {
+  color: rgba(0, 0, 0, 0.62);
+}
+
+windowcontrols > button:hover > image {
+  transform: scale(1.12);
+}
+
+windowcontrols > button:active > image {
+  transform: scale(0.92);
+}
+
+/* Finestra non in primo piano: semafori spenti, come su macOS. */
+window:backdrop windowcontrols > button > image {
+  background-color: color-mix(in srgb, currentColor 22%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 12%, transparent);
+  color: transparent;
+}
+
+windowcontrols > .icon {
+  margin: 6px;
+}
+/*{{/traffic}}*/
+
+/* ════════════════════════════════════════════════════════════════════════
+   5. Pulsanti
+   ════════════════════════════════════════════════════════════════════════ */
+
+button {
+  transition:
+    background-color {{ms:160}} var(--g-ease),
+    box-shadow {{ms:220}} var(--g-ease),
+    transform {{ms:160}} var(--g-ease),
+    color {{ms:160}} var(--g-ease),
+    outline-color {{ms:200}} var(--g-ease),
+    outline-width {{ms:200}} var(--g-ease),
+    outline-offset {{ms:200}} var(--g-ease);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Raggio dei pulsanti (libadwaita: 9px). */
+button:not(.circular):not(.pill):not(.close):not(.minimize):not(.maximize) {
+  border-radius: {{r-1}}px;
+}
+
+/* Pulsanti "pieni": un filo di luce sopra e una sfumatura speculare. */
+button:not(.flat):not(.link):not(.suggested-action):not(.destructive-action):not(.osd):not(.close):not(.minimize):not(.maximize):not(.opaque) {
+  background-image: linear-gradient(to bottom, var(--g-sheen-a), var(--g-sheen-b));
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    0 1px 2px var(--g-inset);
+}
+
+button:not(.flat):not(.link):not(.suggested-action):not(.destructive-action):not(.osd):not(.close):not(.minimize):not(.maximize):not(.opaque):hover {
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    0 2px 8px var(--g-inset);
+}
+
+button:not(.flat):not(.link):not(.suggested-action):not(.destructive-action):not(.osd):not(.close):not(.minimize):not(.maximize):not(.opaque):active,
+button:not(.flat):not(.link):not(.suggested-action):not(.destructive-action):not(.osd):not(.close):not(.minimize):not(.maximize):not(.opaque):checked {
+  background-image: none;
+  box-shadow: inset 0 1px 3px var(--g-inset);
+}
+
+/* Pulsante "flat": appare solo al passaggio, con un velo di luce. */
+button.flat:hover {
+  box-shadow: inset 0 1px 0 var(--g-line);
+}
+
+/* Azione suggerita: accento vivace con alone. */
+button.suggested-action,
+button.suggested-action:checked {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--accent-bg-color) 86%, white),
+    var(--accent-bg-color) 90%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.40),
+    inset 0 0 0 1px color-mix(in srgb, var(--accent-bg-color) 60%, black 15%),
+    0 4px 14px color-mix(in srgb, var(--accent-bg-color) {{glow:45}}%, transparent);
+}
+
+button.suggested-action:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.50),
+    inset 0 0 0 1px color-mix(in srgb, var(--accent-bg-color) 60%, black 15%),
+    0 6px 22px color-mix(in srgb, var(--accent-bg-color) {{glow:60}}%, transparent);
+}
+
+button.suggested-action:active {
+  background-image: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 10, 0.30);
+}
+
+button.destructive-action {
+  color: var(--destructive-fg-color);
+  background-color: var(--destructive-bg-color);
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--destructive-bg-color) 86%, white),
+    var(--destructive-bg-color) 90%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    inset 0 0 0 1px color-mix(in srgb, var(--destructive-bg-color) 60%, black 15%),
+    0 4px 14px color-mix(in srgb, var(--destructive-bg-color) {{glow:40}}%, transparent);
+}
+
+button.destructive-action:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    inset 0 0 0 1px color-mix(in srgb, var(--destructive-bg-color) 60%, black 15%),
+    0 6px 22px color-mix(in srgb, var(--destructive-bg-color) {{glow:55}}%, transparent);
+}
+
+button.destructive-action:active {
+  background-image: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 10, 0.30);
+}
+
+button.pill {
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    0 1px 2px var(--g-inset);
+}
+
+/* Gruppi di pulsanti collegati. */
+.linked > button:not(:first-child):not(:last-child) {
+  box-shadow: inset 0 1px 0 var(--g-hi);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   6. Campi di testo
+   ════════════════════════════════════════════════════════════════════════ */
+
+entry,
+spinbutton {
+  border-radius: {{r}}px;
+  background-color: color-mix(in srgb, currentColor 7%, transparent);
+  box-shadow:
+    inset 0 1px 3px var(--g-inset),
+    0 0 0 1px var(--g-line),
+    0 1px 0 var(--g-hi);
+  transition:
+    background-color {{ms:180}} var(--g-ease),
+    box-shadow {{ms:240}} var(--g-ease),
+    outline-color {{ms:200}} var(--g-ease),
+    outline-width {{ms:200}} var(--g-ease),
+    outline-offset {{ms:200}} var(--g-ease);
+}
+
+entry:focus-within,
+spinbutton:focus-within {
+  background-color: color-mix(in srgb, currentColor 4%, transparent);
+  box-shadow:
+    inset 0 1px 3px var(--g-inset),
+    0 0 0 1px color-mix(in srgb, var(--accent-bg-color) 70%, transparent),
+    0 0 16px color-mix(in srgb, var(--accent-bg-color) {{glow:40}}%, transparent);
+}
+
+entry.flat,
+spinbutton.flat {
+  box-shadow: none;
+}
+
+/* Dentro AdwSpinRow / AdwEntryRow il campo è "trasparente": niente doppio riquadro. */
+row.spin spinbutton,
+row.spin spinbutton:focus-within,
+row.entry text,
+row.entry entry {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Cerca: pillola completa. */
+entry.search,
+searchbar entry {
+  border-radius: 999px;
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   7. Interruttori, spunte, cursori, barre
+   ════════════════════════════════════════════════════════════════════════ */
+
+switch {
+  box-shadow: inset 0 1px 3px var(--g-inset), 0 0 0 1px var(--g-line);
+  transition:
+    background-color {{ms:260}} var(--g-ease),
+    box-shadow {{ms:300}} var(--g-ease),
+    outline-color {{ms:200}} var(--g-ease),
+    outline-width {{ms:200}} var(--g-ease),
+    outline-offset {{ms:200}} var(--g-ease);
+}
+
+switch:checked {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--accent-bg-color) 75%, white),
+    var(--accent-bg-color)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 14px color-mix(in srgb, var(--accent-bg-color) {{glow:55}}%, transparent);
+}
+
+switch > slider {
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 10, 0.35), 0 0 0 0.5px rgba(0, 0, 10, {{shadow:0.12}});
+  transition: box-shadow {{ms:200}} var(--g-ease);
+}
+
+switch:active > slider {
+  box-shadow: 0 1px 3px rgba(0, 0, 10, 0.4), 0 0 0 0.5px rgba(0, 0, 10, {{shadow:0.12}});
+}
+
+check,
+radio {
+  box-shadow: inset 0 1px 2px var(--g-inset), 0 0 0 1px var(--g-line);
+  transition:
+    background-color {{ms:200}} var(--g-ease),
+    box-shadow {{ms:260}} var(--g-ease),
+    transform {{ms:260}} var(--g-spring);
+}
+
+check:checked,
+radio:checked,
+check:indeterminate,
+radio:indeterminate {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--accent-bg-color) 75%, white),
+    var(--accent-bg-color)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 10px color-mix(in srgb, var(--accent-bg-color) {{glow:50}}%, transparent);
+}
+
+check:active,
+radio:active {
+  transform: scale(0.88);
+}
+
+scale > trough {
+  box-shadow: inset 0 1px 2px var(--g-inset);
+}
+
+scale > trough > highlight,
+progressbar > trough > progress {
+  background-image: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--accent-bg-color) 100%, transparent),
+    color-mix(in srgb, var(--accent-bg-color) 70%, #c561ff)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 12px color-mix(in srgb, var(--accent-bg-color) {{glow:50}}%, transparent);
+}
+
+scale:hover > trough > highlight,
+scale:active > trough > highlight {
+  background-image: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--accent-bg-color) 100%, white 12%),
+    color-mix(in srgb, var(--accent-bg-color) 70%, #c561ff 100%)
+  );
+}
+
+scale > trough > slider {
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 10, 0.35), 0 0 0 0.5px rgba(0, 0, 10, 0.15);
+  transition:
+    box-shadow {{ms:200}} var(--g-ease),
+    transform {{ms:240}} var(--g-spring),
+    outline-color {{ms:200}} var(--g-ease),
+    outline-width {{ms:200}} var(--g-ease),
+    outline-offset {{ms:200}} var(--g-ease);
+}
+
+scale:hover > trough > slider {
+  transform: scale(1.12);
+  box-shadow:
+    0 3px 12px rgba(0, 0, 10, 0.38),
+    0 0 12px color-mix(in srgb, var(--accent-bg-color) {{glow:40}}%, transparent);
+}
+
+scale:active > trough > slider {
+  transform: scale(0.96);
+}
+
+levelbar > trough > block.filled {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   8. Liste, barre laterali, schede
+   ════════════════════════════════════════════════════════════════════════ */
+
+.sidebar-pane {
+  background-image: linear-gradient(to bottom, var(--g-sheen-a), var(--g-sheen-b) 40%);
+}
+
+.navigation-sidebar > row,
+.navigation-sidebar > child,
+.navigation-sidebar > flowboxchild {
+  border-radius: {{r-1}}px;
+  margin: 1px 6px;
+  transition:
+    background-color {{ms:180}} var(--g-ease),
+    box-shadow {{ms:240}} var(--g-ease),
+    color {{ms:180}} var(--g-ease),
+    transform {{ms:180}} var(--g-ease);
+}
+
+.navigation-sidebar > row:selected,
+.navigation-sidebar > child:selected,
+.navigation-sidebar > flowboxchild:selected {
+  color: var(--accent-fg-color);
+  background-color: color-mix(in srgb, var(--accent-bg-color) 88%, transparent);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 70%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 3px 12px color-mix(in srgb, var(--accent-bg-color) {{glow:45}}%, transparent);
+}
+
+.navigation-sidebar > row:selected:hover,
+.navigation-sidebar > child:selected:hover,
+.navigation-sidebar > flowboxchild:selected:hover {
+  background-color: var(--accent-bg-color);
+}
+
+.sidebar-pane:backdrop .navigation-sidebar > row:selected,
+.sidebar-pane:backdrop .navigation-sidebar > child:selected,
+.sidebar-pane:backdrop .navigation-sidebar > flowboxchild:selected {
+  color: inherit;
+  background-color: color-mix(in srgb, currentColor 14%, transparent);
+  background-image: none;
+  box-shadow: none;
+}
+
+/* Elenchi a scheda/carta. */
+list.boxed-list,
+list.boxed-list-separate > row,
+list.content {
+  border-radius: {{r+4}}px;
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    0 0 0 1px var(--g-line),
+    0 2px 10px var(--g-inset);
+}
+
+.card {
+  border-radius: {{r+4}}px;
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    0 0 0 1px var(--g-line),
+    0 2px 10px var(--g-inset);
+  transition:
+    background-color {{ms:200}} var(--g-ease),
+    box-shadow {{ms:260}} var(--g-ease),
+    transform {{ms:220}} var(--g-ease),
+    outline-color {{ms:200}} var(--g-ease),
+    outline-width {{ms:200}} var(--g-ease),
+    outline-offset {{ms:200}} var(--g-ease);
+}
+
+.card.activatable:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    0 0 0 1px var(--g-line),
+    0 8px 22px var(--g-drop);
+}
+
+row {
+  transition:
+    background-color {{ms:160}} var(--g-ease),
+    color {{ms:160}} var(--g-ease),
+    outline-color {{ms:200}} var(--g-ease),
+    outline-width {{ms:200}} var(--g-ease),
+    outline-offset {{ms:200}} var(--g-ease);
+}
+
+row:selected {
+  box-shadow: inset 0 1px 0 var(--g-hi);
+}
+
+/* Schede (AdwTabBar / GtkNotebook). */
+tabbar tab,
+notebook > header > tabs > tab {
+  transition: background-color {{ms:180}} var(--g-ease), box-shadow {{ms:240}} var(--g-ease);
+}
+
+tabbar tab:selected,
+notebook > header > tabs > tab:checked {
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    0 1px 4px var(--g-inset);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   9. Menu, popover, dialoghi, tooltip
+   ════════════════════════════════════════════════════════════════════════ */
+
+popover > contents {
+  border-radius: {{r+6}}px;
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    0 0 0 1px var(--g-line),
+    0 18px 44px var(--g-pop),
+    0 4px 12px rgba(0, 0, 10, {{shadow:0.18}});
+}
+
+popover > arrow {
+  background-color: var(--popover-bg-color);
+}
+
+popover.menu modelbutton,
+popover modelbutton {
+  border-radius: {{r-2}}px;
+  transition: background-color {{ms:120}} var(--g-ease), color {{ms:120}} var(--g-ease);
+}
+
+popover.menu modelbutton:hover,
+popover.menu modelbutton:selected,
+popover modelbutton:hover {
+  color: var(--accent-fg-color);
+  background-color: var(--accent-bg-color);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+}
+
+dialog-host > dialog.alert sheet,
+dialog-host > dialog.background sheet {
+  box-shadow:
+    inset 0 1px 0 var(--g-hi),
+    0 0 0 1px var(--g-line),
+    0 24px 60px var(--g-pop);
+}
+
+dialog-host > dialog.alert sheet {
+  border-radius: {{r+10}}px;
+}
+
+tooltip.background {
+  border-radius: 10px;
+  background-color: rgba(28, 28, 44, 0.92);
+  color: white;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 1px rgba(255, 255, 255, 0.10),
+    0 8px 24px rgba(0, 0, 10, 0.45);
+}
+
+toast {
+  border-radius: 999px;
+  background-color: rgba(30, 30, 48, 0.92);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 1px rgba(255, 255, 255, 0.10),
+    0 10px 30px rgba(0, 0, 10, 0.45);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   10. Barre di scorrimento e selezione testo
+   ════════════════════════════════════════════════════════════════════════ */
+
+scrollbar > range > trough > slider:hover {
+  background-color: color-mix(in srgb, var(--accent-bg-color) 70%, transparent);
+}
+
+scrollbar > range > trough > slider:active {
+  background-color: var(--accent-bg-color);
+}
+
+selection:focus-within {
+  background-color: color-mix(in srgb, var(--accent-bg-color) 38%, transparent);
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   11. Animazioni di ingresso
+   ════════════════════════════════════════════════════════════════════════ */
+
+@keyframes glassy-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+popover.menu > contents,
+popover > contents {
+  animation: glassy-pop {{ms:180}} var(--g-ease) both;
+}

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <enum id="org.gnome.shell.extensions.glassy-desktop.autohide">
+    <value nick="never" value="0"/>
+    <value nick="smart" value="1"/>
+    <value nick="always" value="2"/>
+  </enum>
+
+  <schema id="org.gnome.shell.extensions.glassy-desktop" path="/org/gnome/shell/extensions/glassy-desktop/">
+
+    <!-- ── Dock ───────────────────────────────────────────────────────── -->
+    <key name="icon-size" type="i">
+      <default>52</default>
+      <range min="32" max="96"/>
+      <summary>Dimensione delle icone del dock</summary>
+    </key>
+    <key name="magnification" type="d">
+      <default>1.7</default>
+      <range min="1.0" max="2.6"/>
+      <summary>Ingrandimento massimo al passaggio del mouse (1.0 = nessuno)</summary>
+    </key>
+    <key name="icon-spacing" type="i">
+      <default>10</default>
+      <range min="0" max="30"/>
+      <summary>Spazio tra le icone</summary>
+    </key>
+    <key name="bottom-margin" type="i">
+      <default>10</default>
+      <range min="0" max="60"/>
+      <summary>Distanza del dock dal bordo inferiore dello schermo</summary>
+    </key>
+    <key name="autohide" enum="org.gnome.shell.extensions.glassy-desktop.autohide">
+      <default>'smart'</default>
+      <summary>Quando nascondere il dock: mai, se una finestra lo copre, sempre</summary>
+    </key>
+    <key name="dock-tint" type="i">
+      <default>50</default>
+      <range min="0" max="100"/>
+      <summary>Quanto è "pieno" il vetro del dock (0 trasparente, 100 opaco)</summary>
+    </key>
+    <key name="dock-radius" type="i">
+      <default>26</default>
+      <range min="0" max="40"/>
+      <summary>Raggio degli angoli del dock</summary>
+    </key>
+    <key name="dock-blur" type="b">
+      <default>true</default>
+      <summary>Sfoca ciò che sta dietro il dock</summary>
+    </key>
+    <key name="dock-blur-radius" type="i">
+      <default>36</default>
+      <range min="0" max="120"/>
+      <summary>Intensità dello sfocato del dock</summary>
+    </key>
+    <key name="show-trash" type="b">
+      <default>true</default>
+      <summary>Mostra il Cestino nel dock</summary>
+    </key>
+    <key name="show-launchpad-button" type="b">
+      <default>true</default>
+      <summary>Mostra il pulsante del Launchpad nel dock</summary>
+    </key>
+    <key name="show-running-dots" type="b">
+      <default>true</default>
+      <summary>Mostra il pallino sotto le app aperte</summary>
+    </key>
+    <key name="show-labels" type="b">
+      <default>true</default>
+      <summary>Mostra il nome dell'app sopra l'icona</summary>
+    </key>
+    <key name="bounce-on-launch" type="b">
+      <default>true</default>
+      <summary>Fai rimbalzare l'icona mentre l'app si avvia</summary>
+    </key>
+
+    <!-- ── Launchpad ──────────────────────────────────────────────────── -->
+    <key name="launcher-blur" type="i">
+      <default>70</default>
+      <range min="0" max="200"/>
+      <summary>Intensità dello sfocato dietro il launcher</summary>
+    </key>
+    <key name="launcher-dim" type="i">
+      <default>45</default>
+      <range min="0" max="90"/>
+      <summary>Quanto si scurisce lo sfondo dietro il launcher (%)</summary>
+    </key>
+    <key name="launcher-icon-size" type="i">
+      <default>88</default>
+      <range min="48" max="128"/>
+      <summary>Dimensione delle icone del launcher</summary>
+    </key>
+    <key name="launcher-max-columns" type="i">
+      <default>8</default>
+      <range min="3" max="12"/>
+      <summary>Numero massimo di colonne nel launcher</summary>
+    </key>
+
+    <key name="block-activities" type="b">
+      <default>true</default>
+      <summary>Blocca Attività/Overview di GNOME: il tasto Super apre il Launchpad</summary>
+    </key>
+
+    <!-- ── Barra superiore ────────────────────────────────────────────── -->
+    <key name="show-app-name" type="b">
+      <default>true</default>
+      <summary>Mostra il nome dell'app in primo piano nella barra</summary>
+    </key>
+
+    <!-- ── Tema (rigenera i file CSS: vedi themegen.js) ───────────────── -->
+    <key name="glass-strength" type="i">
+      <default>60</default>
+      <range min="0" max="100"/>
+      <summary>Trasparenza delle finestre (0 = opache, 100 = molto trasparenti)</summary>
+    </key>
+    <key name="shell-glass" type="i">
+      <default>60</default>
+      <range min="0" max="100"/>
+      <summary>Trasparenza di barra, menu e notifiche della Shell</summary>
+    </key>
+    <key name="corner-radius" type="i">
+      <default>12</default>
+      <range min="0" max="24"/>
+      <summary>Raggio degli angoli delle finestre</summary>
+    </key>
+    <key name="control-radius" type="i">
+      <default>10</default>
+      <range min="0" max="20"/>
+      <summary>Raggio degli angoli di pulsanti e campi di testo</summary>
+    </key>
+    <key name="glow-strength" type="i">
+      <default>60</default>
+      <range min="0" max="100"/>
+      <summary>Intensità dell'alone colorato di pulsanti, interruttori e cursori</summary>
+    </key>
+    <key name="shadow-strength" type="i">
+      <default>60</default>
+      <range min="0" max="100"/>
+      <summary>Intensità delle ombre di finestre e menu</summary>
+    </key>
+    <key name="traffic-lights" type="b">
+      <default>true</default>
+      <summary>Pulsanti finestra colorati come i semafori di macOS</summary>
+    </key>
+    <key name="theme-animations" type="b">
+      <default>true</default>
+      <summary>Transizioni morbide nelle app GTK</summary>
+    </key>
+    <key name="theme-serial" type="i">
+      <default>0</default>
+      <summary>Contatore interno: cambia quando il tema viene rigenerato, per ricaricare la Shell</summary>
+    </key>
+  </schema>
+</schemalist>

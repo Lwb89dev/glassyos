@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Glassy
+Comment=Vetro smerigliato, luce e movimento per GNOME, ispirato a macOS
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Glassy
+IconTheme=Tela-ubuntu-dark

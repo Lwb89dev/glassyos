@@ -77,18 +77,15 @@
   padding-right: 6px;
 }
 
-/* Nessun riquadro in hover/focus: come in macOS, l'app si ingrandisce e basta. */
+/* Nessun riquadro in hover/focus: come in macOS, l'app si ingrandisce e basta. Il padding orizzontale
+   lascia posto all'ingrandimento (8%) senza uscire dall'area del pulsante; niente ombre del testo, che
+   sporgerebbero fuori dall'area ridisegnata. */
 .glassy-launchpad-item {
-  padding: 10px 4px 4px 4px;
+  padding: 10px 12px 8px 12px;
   border: none;
   border-radius: 0;
   background: none;
   box-shadow: none;
-}
-
-.glassy-launchpad-item:hover .glassy-launchpad-label,
-.glassy-launchpad-item:focus .glassy-launchpad-label {
-  text-shadow: 0 1px 6px rgba(0, 0, 10, 0.9);
 }
 
 .glassy-launchpad-label {
@@ -97,7 +94,6 @@
   font-weight: 500;
   margin-top: 8px;
   text-align: center;
-  text-shadow: 0 1px 4px rgba(0, 0, 10, 0.7);
 }
 
 .glassy-launchpad-empty {

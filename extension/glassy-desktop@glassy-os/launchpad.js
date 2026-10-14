@@ -15,6 +15,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import {addBackgroundBlur} from './blur.js';
 
 const LABEL_SPACE = 76;   // spazio sotto l'icona per il nome dell'app
+const HOVER_SCALE = 1.08; // ingrandimento dell'app sotto il puntatore (il padding in CSS ne tiene conto)
 
 const OPEN_MS = 240;
 const CLOSE_MS = 170;
@@ -86,9 +87,9 @@ export class Launchpad {
                 this.hide();
         }, this);
 
-        this._actor.opacity = 0;
+        this._backdrop.opacity = 0;
         this._content.set({scale_x: 1.08, scale_y: 1.08, opacity: 0});
-        this._actor.ease({opacity: 255, duration: OPEN_MS, mode: Clutter.AnimationMode.EASE_OUT_QUAD});
+        this._backdrop.ease({opacity: 255, duration: OPEN_MS, mode: Clutter.AnimationMode.EASE_OUT_QUAD});
         this._content.ease({
             scale_x: 1, scale_y: 1, opacity: 255,
             duration: OPEN_MS + 60, mode: Clutter.AnimationMode.EASE_OUT_CUBIC,
@@ -111,7 +112,7 @@ export class Launchpad {
             scale_x: 1.06, scale_y: 1.06, opacity: 0,
             duration: CLOSE_MS, mode: Clutter.AnimationMode.EASE_IN_QUAD,
         });
-        this._actor.ease({
+        this._backdrop.ease({
             opacity: 0, duration: CLOSE_MS, mode: Clutter.AnimationMode.EASE_IN_QUAD,
             onComplete: () => this._teardown(),
         });
@@ -140,15 +141,23 @@ export class Launchpad {
     // ── Costruzione ──────────────────────────────────────────────────────────
 
     _build(mon) {
+        // La radice riceve gli eventi e non ha effetti. Lo sfocato sta su un attore a sé, senza figli e non
+        // reattivo (come la pillola del dock): con lo sfocato sulla radice, ogni ingrandimento di un'icona
+        // ridisegnava un pezzo dello sfondo sfocato e su alcune schede grafiche restavano riquadri e contorni.
         this._actor = new St.Widget({
             name: 'glassy-launchpad',
-            style_class: 'glassy-launchpad',
             reactive: true,
             x: mon.x, y: mon.y, width: mon.width, height: mon.height,
         });
-        addBackgroundBlur(this._actor, {radius: this._settings.get_int('launcher-blur'), brightness: 0.82});
+        this._backdrop = new St.Widget({
+            style_class: 'glassy-launchpad',
+            reactive: false,
+            width: mon.width, height: mon.height,
+        });
+        this._actor.add_child(this._backdrop);
+        addBackgroundBlur(this._backdrop, {radius: this._settings.get_int('launcher-blur'), brightness: 0.82});
         const dim = this._settings.get_int('launcher-dim') / 45;       // 45 = aspetto predefinito
-        this._actor.set_style(
+        this._backdrop.set_style(
             `background-gradient-start: rgba(30, 24, 70, ${Math.min(0.95, 0.40 * dim).toFixed(2)}); ` +
             `background-gradient-end: rgba(10, 12, 40, ${Math.min(0.95, 0.52 * dim).toFixed(2)});`);
 
@@ -205,7 +214,10 @@ export class Launchpad {
     }
 
     _createItem(app) {
-        const box = new St.BoxLayout({vertical: true, style_class: 'glassy-launchpad-item-box'});
+        const box = new St.BoxLayout({
+            vertical: true, style_class: 'glassy-launchpad-item-box',
+            pivot_point: new Graphene.Point({x: 0.5, y: 0.5}),
+        });
         const icon = app.create_icon_texture(this._settings.get_int('launcher-icon-size'));
         icon.x_align = Clutter.ActorAlign.CENTER;
         box.add_child(icon);
@@ -221,11 +233,16 @@ export class Launchpad {
             can_focus: true,
             track_hover: true,
             child: box,
-            pivot_point: new Graphene.Point({x: 0.5, y: 0.5}),
         });
+        // Si ingrandisce il contenuto, non il pulsante: il padding del pulsante lascia posto all'ingrandimento,
+        // così ciò che viene dipinto resta sempre dentro l'area del pulsante e il ridisegno la copre tutta.
+        // A fine transizione si ridisegna l'intero launcher, per cancellare qualunque residuo.
         const syncScale = () => {
-            const s = button.hover || button.has_key_focus() ? 1.08 : 1;
-            button.ease({scale_x: s, scale_y: s, duration: 140, mode: Clutter.AnimationMode.EASE_OUT_QUAD});
+            const s = button.hover || button.has_key_focus() ? HOVER_SCALE : 1;
+            box.ease({
+                scale_x: s, scale_y: s, duration: 140, mode: Clutter.AnimationMode.EASE_OUT_QUAD,
+                onComplete: () => this._actor?.queue_redraw(),
+            });
         };
         button.connectObject(
             'clicked', () => this._launch(app),
@@ -346,6 +363,7 @@ export class Launchpad {
         this._track.ease({
             translation_x: -page * this._mon.width,
             duration: PAGE_MS, mode: Clutter.AnimationMode.EASE_OUT_CUBIC,
+            onComplete: () => this._actor?.queue_redraw(),
         });
         this._dots.get_children().forEach((d, i) => {
             if (i === page)

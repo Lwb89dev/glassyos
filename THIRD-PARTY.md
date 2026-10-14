@@ -1,25 +1,25 @@
-# Componenti di terzi
+# Third-party components
 
-Glassy (questo repository) è distribuito con licenza **MIT** (vedi `LICENSE`).
-Nessuno dei componenti qui sotto è incluso nel repository: l'installer li scarica sul computer
-dell'utente, ognuno con la propria licenza. Per questo la licenza MIT di Glassy non si applica a loro.
+Glassy (this repository) is distributed under the **MIT** license (see `LICENSE`).
+None of the components below is included in the repository: the installer downloads them onto the user's
+computer, each under its own license. For that reason Glassy's MIT license does not apply to them.
 
-| Componente | Autore | Licenza | Dove/come |
+| Component | Author | License | Where/how |
 |---|---|---|---|
-| [Tela icon theme](https://github.com/vinceliuice/Tela-icon-theme) (varianti `Tela-ubuntu*`) | Vinceliuice | GPL-3.0 | `install.sh` scarica il tag `2026-07-07` da GitHub e ne verifica lo SHA-256; in alternativa usa una cartella `Tela-ubuntu/` messa dall'utente accanto allo script |
-| [adw-gtk3](https://github.com/lassekongo83/adw-gtk3) | lassekongo83 | LGPL-2.1 | `tools/fetch-adw-gtk3.sh` scarica una versione fissata, verificata con SHA-256 |
-| [Blur my Shell](https://extensions.gnome.org/extension/3193/blur-my-shell/) | aunetx | vedi il progetto | scaricata da extensions.gnome.org |
-| User Themes (gnome-shell-extensions) | progetto GNOME | vedi il progetto | scaricata da extensions.gnome.org |
-| [Magic Lamp Effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/) | hermes83 | vedi il progetto | scaricata da extensions.gnome.org |
+| [Tela icon theme](https://github.com/vinceliuice/Tela-icon-theme) (`Tela-ubuntu*` variants) | Vinceliuice | GPL-3.0 | `install.sh` downloads tag `2026-07-07` from GitHub and verifies its SHA-256; alternatively it uses a `Tela-ubuntu/` folder the user places next to the script |
+| [adw-gtk3](https://github.com/lassekongo83/adw-gtk3) | lassekongo83 | LGPL-2.1 | `tools/fetch-adw-gtk3.sh` downloads a pinned version, verified with SHA-256 |
+| [Blur my Shell](https://extensions.gnome.org/extension/3193/blur-my-shell/) | aunetx | see the project | downloaded from extensions.gnome.org |
+| User Themes (gnome-shell-extensions) | GNOME project | see the project | downloaded from extensions.gnome.org |
+| [Magic Lamp Effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/) | hermes83 | see the project | downloaded from extensions.gnome.org |
 
-## Note
+## Notes
 
-- **Icone Tela e MIT.** Tela è GPL-3.0: ridistribuirla dentro un repository MIT non sarebbe corretto (la copia
-  distribuita dovrebbe restare GPL-3.0). Per questo la cartella `Tela-ubuntu/` è in `.gitignore` e
-  l'installer la scarica direttamente dall'autore. Glassy non modifica le icone e non ne contiene copie.
-- Gli screenshot in `docs/` mostrano un desktop in cui le icone Tela sono attive: sono immagini della
-  schermata in funzione, a scopo illustrativo.
-- L'estensione `extension/glassy-desktop@glassy-os` usa le API di GNOME Shell (GPL-2.0-or-later) tramite i
-  moduli della Shell, come ogni estensione; la licenza MIT è compatibile con la GPL.
-- I marchi citati (macOS, GNOME, ecc.) appartengono ai rispettivi proprietari; Glassy è un progetto
-  indipendente e non affiliato.
+- **Tela icons and MIT.** Tela is GPL-3.0: redistributing it inside an MIT repository would not be correct (the
+  distributed copy would have to stay GPL-3.0). That is why the `Tela-ubuntu/` folder is in `.gitignore` and the
+  installer downloads it straight from the author. Glassy does not modify the icons and contains no copy of them.
+- The screenshots in `docs/` show a desktop where the Tela icons are active: they are pictures of the running
+  screen, included for illustration.
+- The `extension/glassy-desktop@glassy-os` extension uses GNOME Shell's APIs (GPL-2.0-or-later) through the
+  Shell's modules, like every extension; the MIT license is compatible with the GPL.
+- Trademarks mentioned (macOS, GNOME, etc.) belong to their respective owners; Glassy is an independent project
+  and is not affiliated with them.

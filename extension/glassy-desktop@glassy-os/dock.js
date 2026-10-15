@@ -11,7 +11,10 @@
 //    a ogni frame, ed è la cosa più lenta che si possa fare;
 //  • icone, pallini e pillola leggono gli stessi valori nello stesso frame: restano sincronizzati;
 //  • lo sfocato è inscritto nella pillola (Shell.BlurEffect è sempre rettangolare) così i suoi
-//    angoli non sbordano da quelli arrotondati.
+//    angoli non sbordano da quelli arrotondati;
+//  • lo sfocato NON legge lo schermo (modalità BACKGROUND): sfoca un clone di sfondo e finestre
+//    (BackdropBlur, in blur.js). Con la modalità BACKGROUND, sulle GPU che ridisegnano solo le zone
+//    cambiate, ogni hover lasciava riquadri persistenti attorno alle icone.
 
 import Clutter from 'gi://Clutter';
 import Gio from 'gi://Gio';
@@ -28,7 +31,7 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import {AppMenu} from 'resource:///org/gnome/shell/ui/appMenu.js';
 
-import {addBackgroundBlur, removeBackgroundBlur} from './blur.js';
+import {BackdropBlur} from './blur.js';
 
 const RENDER = 96;        // le icone si disegnano a questa dimensione e si riducono: restano nitide da ingrandite
 const SEP_W = 2;          // larghezza del separatore
@@ -100,9 +103,13 @@ export class Dock {
         });
         this.actor.add_child(this._pill);
 
-        // Attore dello sfocato: inscritto nella pillola (vedi BLUR_INSET)
-        this._blur = new St.Widget({reactive: false});
-        this._pill.add_child(this._blur);
+        // Sfocato: fratello SOTTO la pillola (la pillola, traslucida, ci fa da velo), largo quanto il dock
+        // e ritagliato a ogni frame sul rettangolo inscritto nella pillola (vedi BLUR_INSET).
+        this._blur = new BackdropBlur({brightness: 1.0});
+        this.actor.insert_child_below(this._blur.actor, this._pill);
+        this._blurClip = null;
+        // lo spostamento del dock (nascondi/mostra) cambia ciò che sta dietro lo sfocato
+        this.actor.connectObject('notify::translation-y', () => this._syncBlur(), this);
 
         this._label = new St.Label({style_class: 'glassy-dock-label', visible: false, opacity: 0});
         this.actor.add_child(this._label);
@@ -205,9 +212,8 @@ export class Dock {
             `border-radius: ${r}px; background-gradient-start: rgba(255, 255, 255, ${top}); ` +
             `background-gradient-end: rgba(255, 255, 255, ${bottom}); border: 1px solid rgba(255, 255, 255, ${border});`);
 
-        removeBackgroundBlur(this._blur);
-        if (s.get_boolean('dock-blur'))
-            addBackgroundBlur(this._blur, {radius: s.get_int('dock-blur-radius'), brightness: 0.95});
+        this._blur.actor.visible = s.get_boolean('dock-blur');
+        this._blur.radius = s.get_int('dock-blur-radius');
     }
 
     // ── Voci del dock ────────────────────────────────────────────────────────
@@ -439,8 +445,9 @@ export class Dock {
         this._pillBase = baseWidth + 2 * PAD_X;
         this._pill.set_size(Math.round(this._pillBase), pillH);
         this._pill.set_position(Math.round(width / 2 - this._pillBase / 2), height - this.bottomMargin - pillH);
-        this._blur.set_size(Math.max(1, Math.round(this._pillBase - 2 * BLUR_INSET)), Math.max(1, pillH - 2 * BLUR_INSET));
-        this._blur.set_position(BLUR_INSET, BLUR_INSET);
+        this._blur.place(0, this._pill.y, width, pillH);
+        this._blurClip = null;
+        this._syncBlur();
 
         // posizioni a riposo
         const rest = icon / RENDER;
@@ -463,6 +470,24 @@ export class Dock {
         this._apply();
         this._updateIconGeometry();
         this._placeHidden();
+    }
+
+    /** Posizione dello sfocato sullo stage (dock + traslazione di nascondi/mostra). */
+    _syncBlur() {
+        this._blur.sync(this.actor.x, this.actor.y + this.actor.translation_y + this._pill.y);
+    }
+
+    /** Ritaglia lo sfocato sul rettangolo inscritto nella pillola, così come appare in questo frame. */
+    _clipBlur() {
+        const visualW = this._pillBase * this._pill.scale_x;
+        const x = Math.round(this._pill.x + this._pillBase / 2 - visualW / 2 + BLUR_INSET);
+        const w = Math.max(1, Math.round(visualW - 2 * BLUR_INSET));
+        const h = Math.max(1, this._pill.height - 2 * BLUR_INSET);
+        const key = `${x}:${w}:${h}`;
+        if (key === this._blurClip)
+            return;
+        this._blurClip = key;
+        this._blur.clip(x, BLUR_INSET, w, h);
     }
 
     _moveTo(actor, x, y, animate) {
@@ -547,6 +572,7 @@ export class Dock {
 
         // la pillola cresce con una trasformazione, non cambiando dimensione
         this._pill.scale_x = (total + 2 * PAD_X) / this._pillBase;
+        this._clipBlur();
         this._placeLabel();
     }
 

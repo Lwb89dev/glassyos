@@ -12,7 +12,7 @@ import St from 'gi://St';
 
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
-import {addBackgroundBlur} from './blur.js';
+import {BackdropBlur} from './blur.js';
 
 const LABEL_SPACE = 76;   // spazio sotto l'icona per il nome dell'app
 const HOVER_SCALE = 1.08; // ingrandimento dell'app sotto il puntatore (il padding in CSS ne tiene conto)
@@ -76,6 +76,7 @@ export class Launchpad {
         Main.layoutManager.uiGroup.set_child_below_sibling(this._actor, Main.layoutManager.panelBox);
 
         this._rebuildGrid();    // le misure si calcolano solo con gli attori già sullo stage
+        this._blur.sync(mon.x, mon.y);
 
         // Il grab è sullo stage intero, come fa l'Overview di GNOME: con un grab sul solo launcher
         // dock e barra superiore, che sono fuori dal suo albero, smetterebbero di ricevere il mouse.
@@ -141,25 +142,28 @@ export class Launchpad {
     // ── Costruzione ──────────────────────────────────────────────────────────
 
     _build(mon) {
-        // La radice riceve gli eventi e non ha effetti. Lo sfocato sta su un attore a sé, senza figli e non
-        // reattivo (come la pillola del dock): con lo sfocato sulla radice, ogni ingrandimento di un'icona
-        // ridisegnava un pezzo dello sfondo sfocato e su alcune schede grafiche restavano riquadri e contorni.
+        // La radice riceve gli eventi e non ha effetti. Sotto il contenuto c'è lo sfondo: uno sfocato
+        // che NON legge lo schermo (BackdropBlur: clone di sfondo e finestre sfocato in modalità ACTOR,
+        // tenuto in cache) e sopra un velo colorato. Con lo sfocato BACKGROUND della Shell, sulle GPU che
+        // ridisegnano solo le zone cambiate, ogni hover lasciava riquadri persistenti attorno alle icone.
         this._actor = new St.Widget({
             name: 'glassy-launchpad',
             reactive: true,
             x: mon.x, y: mon.y, width: mon.width, height: mon.height,
         });
-        this._backdrop = new St.Widget({
-            style_class: 'glassy-launchpad',
-            reactive: false,
-            width: mon.width, height: mon.height,
-        });
+        this._backdrop = new Clutter.Actor({reactive: false, width: mon.width, height: mon.height, clip_to_allocation: true});
         this._actor.add_child(this._backdrop);
-        addBackgroundBlur(this._backdrop, {radius: this._settings.get_int('launcher-blur'), brightness: 0.82});
+
+        this._blur = new BackdropBlur({radius: this._settings.get_int('launcher-blur'), brightness: 0.82});
+        this._blur.place(0, 0, mon.width, mon.height);
+        this._backdrop.add_child(this._blur.actor);
+
+        const tint = new St.Widget({style_class: 'glassy-launchpad', width: mon.width, height: mon.height});
         const dim = this._settings.get_int('launcher-dim') / 45;       // 45 = aspetto predefinito
-        this._backdrop.set_style(
+        tint.set_style(
             `background-gradient-start: rgba(30, 24, 70, ${Math.min(0.95, 0.40 * dim).toFixed(2)}); ` +
             `background-gradient-end: rgba(10, 12, 40, ${Math.min(0.95, 0.52 * dim).toFixed(2)});`);
+        this._backdrop.add_child(tint);
 
         // Tutto il contenuto sta qui: si anima come un blocco solo.
         this._content = new St.Widget({

@@ -139,7 +139,7 @@ extensions you already had are left alone.
 
 | Part | Where | Notes |
 |---|---|---|
-| Dock, Launchpad, Activities lockdown, bar | `extension/glassy-desktop@glassy-os/` | GNOME Shell extension (ESM). The blur of the dock and launcher is the Shell's native one (`Shell.BlurEffect`). |
+| Dock, Launchpad, Activities lockdown, bar | `extension/glassy-desktop@glassy-os/` | GNOME Shell extension (ESM). The blur of the dock and launcher is the Shell's native one (`Shell.BlurEffect`), applied to a clone of the desktop rather than read back from the screen, so partial redraws cannot leave stale rectangles. |
 | libadwaita (GTK4) apps | `theme/Glassy/gtk-4.0/glassy.css` | libadwaita apps ignore the theme and only read `~/.config/gtk-4.0/gtk.css`: the installer points it at this file. Light/dark through `@media (prefers-color-scheme)`, system accent. |
 | Non-libadwaita GTK4 apps | `theme/Glassy/gtk-4.0/gtk.css` | adw-gtk3 base + Glassy overrides. |
 | GTK3 apps | `theme/Glassy/gtk-3.0/` | [adw-gtk3](https://github.com/lassekongo83/adw-gtk3) base (downloaded by the installer, pinned version, verified with SHA-256) + Glassy overrides. The installer writes the GTK3 accent: GTK3 does not read the system one. |
